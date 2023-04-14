@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2007-2010 Júlio Vilmar Gesser.
- * Copyright (C) 2011, 2013-2021 The JavaParser Team.
+ * Copyright (C) 2011, 2013-2023 The JavaParser Team.
  *
  * This file is part of JavaParser.
  *
@@ -20,11 +20,10 @@
  */
 package com.github.javaparser.metamodel;
 
+import com.github.javaparser.ast.Generated;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import com.github.javaparser.ast.Generated;
-import com.github.javaparser.ast.key.KeyCcatchBranch;
 
 /**
  * Warning: The content of this class is partially or completely generated - manual edits risk being overwritten.
@@ -203,6 +202,7 @@ public final class JavaParserMetaModel {
         objectCreationExprMetaModel.getConstructorParameters().add(objectCreationExprMetaModel.typeArgumentsPropertyMetaModel);
         objectCreationExprMetaModel.getConstructorParameters().add(objectCreationExprMetaModel.argumentsPropertyMetaModel);
         objectCreationExprMetaModel.getConstructorParameters().add(objectCreationExprMetaModel.anonymousClassBodyPropertyMetaModel);
+        patternExprMetaModel.getConstructorParameters().add(patternExprMetaModel.modifiersPropertyMetaModel);
         patternExprMetaModel.getConstructorParameters().add(patternExprMetaModel.typePropertyMetaModel);
         patternExprMetaModel.getConstructorParameters().add(patternExprMetaModel.namePropertyMetaModel);
         singleMemberAnnotationExprMetaModel.getConstructorParameters().add(annotationExprMetaModel.namePropertyMetaModel);
@@ -340,7 +340,7 @@ public final class JavaParserMetaModel {
         keyPassiveExpressionMetaModel.getConstructorParameters().add(keyPassiveExpressionMetaModel.exprPropertyMetaModel);
         keyProgramVariableSVMetaModel.getConstructorParameters().add(keyProgramVariableSVMetaModel.textPropertyMetaModel);
         keyStatementSVMetaModel.getConstructorParameters().add(keyStatementSVMetaModel.textPropertyMetaModel);
-        keyTypeSVMetaModel.getConstructorParameters().add(keyTypeSVMetaModel.namePropertyMetaModel);
+        keyTypeSVMetaModel.getConstructorParameters().add(keyTypeSVMetaModel.textPropertyMetaModel);
         keyCcatchSVMetaModel.getConstructorParameters().add(keyCcatchSVMetaModel.textPropertyMetaModel);
         keyExecutionContextSVMetaModel.getConstructorParameters().add(keyExecutionContextSVMetaModel.textPropertyMetaModel);
     }
@@ -750,6 +750,8 @@ public final class JavaParserMetaModel {
         objectCreationExprMetaModel.getDeclaredPropertyMetaModels().add(objectCreationExprMetaModel.typeArgumentsPropertyMetaModel);
         objectCreationExprMetaModel.usingDiamondOperatorPropertyMetaModel = new PropertyMetaModel(objectCreationExprMetaModel, "usingDiamondOperator", boolean.class, Optional.empty(), false, false, false, false);
         objectCreationExprMetaModel.getDerivedPropertyMetaModels().add(objectCreationExprMetaModel.usingDiamondOperatorPropertyMetaModel);
+        patternExprMetaModel.modifiersPropertyMetaModel = new PropertyMetaModel(patternExprMetaModel, "modifiers", com.github.javaparser.ast.Modifier.class, Optional.of(modifierMetaModel), false, false, true, false);
+        patternExprMetaModel.getDeclaredPropertyMetaModels().add(patternExprMetaModel.modifiersPropertyMetaModel);
         patternExprMetaModel.namePropertyMetaModel = new PropertyMetaModel(patternExprMetaModel, "name", com.github.javaparser.ast.expr.SimpleName.class, Optional.of(simpleNameMetaModel), false, false, false, false);
         patternExprMetaModel.getDeclaredPropertyMetaModels().add(patternExprMetaModel.namePropertyMetaModel);
         patternExprMetaModel.typePropertyMetaModel = new PropertyMetaModel(patternExprMetaModel, "type", com.github.javaparser.ast.type.ReferenceType.class, Optional.of(referenceTypeMetaModel), false, false, false, false);
@@ -1026,8 +1028,8 @@ public final class JavaParserMetaModel {
         keyProgramVariableSVMetaModel.getDeclaredPropertyMetaModels().add(keyProgramVariableSVMetaModel.textPropertyMetaModel);
         keyStatementSVMetaModel.textPropertyMetaModel = new PropertyMetaModel(keyStatementSVMetaModel, "text", java.lang.String.class, Optional.empty(), false, false, false, false);
         keyStatementSVMetaModel.getDeclaredPropertyMetaModels().add(keyStatementSVMetaModel.textPropertyMetaModel);
-        keyTypeSVMetaModel.namePropertyMetaModel = new PropertyMetaModel(keyTypeSVMetaModel, "name", java.lang.String.class, Optional.empty(), false, false, false, false);
-        keyTypeSVMetaModel.getDeclaredPropertyMetaModels().add(keyTypeSVMetaModel.namePropertyMetaModel);
+        keyTypeSVMetaModel.textPropertyMetaModel = new PropertyMetaModel(keyTypeSVMetaModel, "text", java.lang.String.class, Optional.empty(), false, false, false, false);
+        keyTypeSVMetaModel.getDeclaredPropertyMetaModels().add(keyTypeSVMetaModel.textPropertyMetaModel);
         keyCcatchSVMetaModel.textPropertyMetaModel = new PropertyMetaModel(keyCcatchSVMetaModel, "text", java.lang.String.class, Optional.empty(), false, false, false, false);
         keyCcatchSVMetaModel.getDeclaredPropertyMetaModels().add(keyCcatchSVMetaModel.textPropertyMetaModel);
         keyExecutionContextSVMetaModel.textPropertyMetaModel = new PropertyMetaModel(keyExecutionContextSVMetaModel, "text", java.lang.String.class, Optional.empty(), false, false, false, false);

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2007-2010 Júlio Vilmar Gesser.
- * Copyright (C) 2011, 2013-2021 The JavaParser Team.
+ * Copyright (C) 2011, 2013-2023 The JavaParser Team.
  *
  * This file is part of JavaParser.
  *
@@ -1517,12 +1517,14 @@ public class ModifierVisitor<A> implements GenericVisitor<Visitable, A> {
 
     @Override
     public Visitable visit(final PatternExpr n, final A arg) {
+        NodeList<Modifier> modifiers = modifyList(n.getModifiers(), arg);
         SimpleName name = (SimpleName) n.getName().accept(this, arg);
         ReferenceType type = (ReferenceType) n.getType().accept(this, arg);
         NodeList<Comment> associatedSpecificationComments = modifyList(n.getAssociatedSpecificationComments(), arg);
         Comment comment = n.getComment().map(s -> (Comment) s.accept(this, arg)).orElse(null);
         if (name == null || type == null)
             return null;
+        n.setModifiers(modifiers);
         n.setName(name);
         n.setType(type);
         n.setAssociatedSpecificationComments(associatedSpecificationComments);

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2007-2010 Júlio Vilmar Gesser.
- * Copyright (C) 2011, 2013-2021 The JavaParser Team.
+ * Copyright (C) 2011, 2013-2023 The JavaParser Team.
  *
  * This file is part of JavaParser.
  *
@@ -18,11 +18,9 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
  */
-
 package com.github.javaparser.resolution.types;
 
 import java.util.Map;
-
 import com.github.javaparser.resolution.declarations.ResolvedTypeParameterDeclaration;
 
 /**
@@ -38,19 +36,18 @@ public class ResolvedArrayType implements ResolvedType {
         this.baseType = baseType;
     }
 
-    ///
-    /// Object methods
-    ///
-
+    // /
+    // / Object methods
+    // /
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         ResolvedArrayType that = (ResolvedArrayType) o;
-
-        if (!baseType.equals(that.baseType)) return false;
-
+        if (!baseType.equals(that.baseType))
+            return false;
         return true;
     }
 
@@ -64,10 +61,9 @@ public class ResolvedArrayType implements ResolvedType {
         return "ResolvedArrayType{" + baseType + "}";
     }
 
-    ///
-    /// Type methods
-    ///
-
+    // /
+    // / Type methods
+    // /
     @Override
     public ResolvedArrayType asArrayType() {
         return this;
@@ -88,14 +84,23 @@ public class ResolvedArrayType implements ResolvedType {
     }
 
     @Override
-    public boolean isAssignableBy(ResolvedType other) {
+    public // https://docs.oracle.com/javase/specs/jls/se8/html/jls-5.html#jls-5.2
+    boolean isAssignableBy(ResolvedType other) {
+        if (other.isNull()) {
+            return true;
+        }
         if (other.isArray()) {
             if (baseType.isPrimitive() && other.asArrayType().getComponentType().isPrimitive()) {
-              return baseType.equals(other.asArrayType().getComponentType());
+                return baseType.equals(other.asArrayType().getComponentType());
             }
+            // An array of primitive type is not assignable by an array of boxed type nor the reverse
+            // An array of primitive type cannot be assigned to an array of Object
+            if ((baseType.isPrimitive() && other.asArrayType().getComponentType().isReferenceType()) || (baseType.isReferenceType() && other.asArrayType().getComponentType().isPrimitive())) {
+                return false;
+            }
+            // An array can be assigned only to a variable of a compatible array type, or to
+            // a variable of type Object, Cloneable or java.io.Serializable.
             return baseType.isAssignableBy(other.asArrayType().getComponentType());
-        } else if (other.isNull()) {
-            return true;
         }
         return false;
     }
@@ -109,14 +114,21 @@ public class ResolvedArrayType implements ResolvedType {
             return new ResolvedArrayType(baseTypeReplaced);
         }
     }
-    
-    ///
-    /// Erasure
-    ///
+
+    // /
+    // / Erasure
+    // /
     // The erasure of an array type T[] is |T|[].
     @Override
     public ResolvedType erasure() {
         return new ResolvedArrayType(baseType.erasure());
     }
 
+    @Override
+    public String toDescriptor() {
+        StringBuffer sb = new StringBuffer();
+        sb.append("[");
+        sb.append(baseType.toDescriptor());
+        return sb.toString();
+    }
 }

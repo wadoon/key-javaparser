@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2007-2010 Júlio Vilmar Gesser.
- * Copyright (C) 2011, 2013-2021 The JavaParser Team.
+ * Copyright (C) 2011, 2013-2023 The JavaParser Team.
  *
  * This file is part of JavaParser.
  *
@@ -335,7 +335,7 @@ public class MethodCallExpr extends Expression implements NodeWithTypeArguments<
     @Override
     public boolean isPolyExpression() {
         // A method invocation expression is a poly expression if all of the following are true:
-        // 
+        //
         // 1. The invocation appears in an assignment context or an invocation context (§5.2, §5.3).
         if (!(appearsInAssignmentContext() || appearsInInvocationContext())) {
             return false;

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2007-2010 Júlio Vilmar Gesser.
- * Copyright (C) 2011, 2013-2021 The JavaParser Team.
+ * Copyright (C) 2011, 2013-2023 The JavaParser Team.
  *
  * This file is part of JavaParser.
  *
@@ -18,12 +18,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
  */
-
 package com.github.javaparser.metamodel;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -34,6 +32,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
  * (Used during generation of the meta model.)
  */
 @Retention(RUNTIME)
-@Target({FIELD, METHOD})
+@Target({ FIELD, METHOD })
 public @interface NonEmptyProperty {
 }

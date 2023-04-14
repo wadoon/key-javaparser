@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2007-2010 Júlio Vilmar Gesser.
- * Copyright (C) 2011, 2013-2021 The JavaParser Team.
+ * Copyright (C) 2011, 2013-2023 The JavaParser Team.
  *
  * This file is part of JavaParser.
  *
@@ -36,7 +36,7 @@ import java.util.function.Consumer;
 import static com.github.javaparser.utils.Utils.assertNotNull;
 
 /**
- * An assignment expression. It supports the operators that are found the the AssignExpr.Operator enum.
+ * An assignment expression. It supports the operators that are found the AssignExpr.Operator enum.
  * <br>{@code a=5}
  * <br>{@code time+=500}
  * <br>{@code watch.time+=500}

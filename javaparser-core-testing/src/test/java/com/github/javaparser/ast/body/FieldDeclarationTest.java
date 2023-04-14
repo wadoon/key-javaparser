@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2007-2010 Júlio Vilmar Gesser.
- * Copyright (C) 2011, 2013-2019 The JavaParser Team.
+ * Copyright (C) 2011, 2013-2023 The JavaParser Team.
  *
  * This file is part of JavaParser.
  *
@@ -21,17 +21,17 @@
 
 package com.github.javaparser.ast.body;
 
-import static com.github.javaparser.StaticJavaParser.parse;
-import static com.github.javaparser.StaticJavaParser.parseBodyDeclaration;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import org.junit.jupiter.api.Test;
-
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.Modifier.Keyword;
 import com.github.javaparser.ast.NodeList;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+import static com.github.javaparser.StaticJavaParser.parse;
+import static com.github.javaparser.StaticJavaParser.parseBodyDeclaration;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FieldDeclarationTest {
     @Test
@@ -78,4 +78,26 @@ class FieldDeclarationTest {
     	assertTrue(modifiers.contains(Modifier.synchronizedModifier()));
     	assertEquals(2, modifiers.size());
     }
+
+    @Test
+    void interfaceFieldTest() {
+        CompilationUnit compilationUnit = parse("" +
+                "interface A {\n" +
+                "    int a = 1;\n" +
+                "    static int a_s = 1;\n" +
+                "    final int a_f = 1;\n" +
+                "    static final int a_s_f = 1;\n" +
+                "    String b = \"b\";\n" +
+                "    static String b_s = \"b\";\n" +
+                "    final String b_f = \"b\";\n" +
+                "    static final String b_s_f = \"b\";\n" +
+                "}\n");
+        for (int i = 0; i < 8; ++i) {
+            BodyDeclaration<?> declaration = compilationUnit.getType(0).getMembers().get(i);
+            FieldDeclaration fieldDeclaration = declaration.asFieldDeclaration();
+            Assertions.assertTrue(fieldDeclaration.isStatic());
+            Assertions.assertTrue(fieldDeclaration.isFinal());
+        }
+    }
+
 }

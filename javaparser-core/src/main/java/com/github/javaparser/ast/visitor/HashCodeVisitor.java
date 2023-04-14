@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2007-2010 Júlio Vilmar Gesser.
- * Copyright (C) 2011, 2013-2021 The JavaParser Team.
+ * Copyright (C) 2011, 2013-2023 The JavaParser Team.
  *
  * This file is part of JavaParser.
  *
@@ -26,11 +26,11 @@ import com.github.javaparser.ast.comments.BlockComment;
 import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.comments.LineComment;
 import com.github.javaparser.ast.expr.*;
+import com.github.javaparser.ast.key.*;
+import com.github.javaparser.ast.key.sv.*;
 import com.github.javaparser.ast.modules.*;
 import com.github.javaparser.ast.stmt.*;
 import com.github.javaparser.ast.type.*;
-import com.github.javaparser.ast.key.*;
-import com.github.javaparser.ast.key.sv.*;
 
 /**
  * A visitor that calculates a deep hash code for a node by using the hash codes of all its properties,
@@ -453,16 +453,7 @@ public class HashCodeVisitor implements GenericVisitor<Integer, Void> {
 
     @Override
     public Integer visit(final PatternExpr n, final Void arg) {
-        return (n.getName().accept(this, arg)) * 31 + (n.getType().accept(this, arg)) * 31 + (n.getAssociatedSpecificationComments().isPresent() ? n.getAssociatedSpecificationComments().get().accept(this, arg) : 0) * 31 + (n.getComment().isPresent() ? n.getComment().get().accept(this, arg) : 0);
-    }
-
-    @Override
-    public Integer visit(final RecordDeclaration n, final Void arg) {
-        return (n.getImplementedTypes().accept(this, arg)) * 31 + (n.getParameters().accept(this, arg)) * 31 + (n.getReceiverParameter().isPresent() ? n.getReceiverParameter().get().accept(this, arg) : 0) * 31 + (n.getTypeParameters().accept(this, arg)) * 31 + (n.getMembers().accept(this, arg)) * 31 + (n.getModifiers().accept(this, arg)) * 31 + (n.getName().accept(this, arg)) * 31 + (n.getAnnotations().accept(this, arg)) * 31 + (n.getAssociatedSpecificationComments().isPresent() ? n.getAssociatedSpecificationComments().get().accept(this, arg) : 0) * 31 + (n.getComment().isPresent() ? n.getComment().get().accept(this, arg) : 0);
-    }
-
-    public Integer visit(final CompactConstructorDeclaration n, final Void arg) {
-        return (n.getBody().accept(this, arg)) * 31 + (n.getModifiers().accept(this, arg)) * 31 + (n.getName().accept(this, arg)) * 31 + (n.getThrownExceptions().accept(this, arg)) * 31 + (n.getTypeParameters().accept(this, arg)) * 31 + (n.getAnnotations().accept(this, arg)) * 31 + (n.getAssociatedSpecificationComments().isPresent() ? n.getAssociatedSpecificationComments().get().accept(this, arg) : 0) * 31 + (n.getComment().isPresent() ? n.getComment().get().accept(this, arg) : 0);
+        return (n.getModifiers().accept(this, arg)) * 31 + (n.getName().accept(this, arg)) * 31 + (n.getType().accept(this, arg)) * 31 + (n.getAssociatedSpecificationComments().isPresent() ? n.getAssociatedSpecificationComments().get().accept(this, arg) : 0) * 31 + (n.getComment().isPresent() ? n.getComment().get().accept(this, arg) : 0);
     }
 
     @Override
@@ -608,5 +599,14 @@ public class HashCodeVisitor implements GenericVisitor<Integer, Void> {
     @Override
     public Integer visit(final KeyExecutionContextSV n, final Void arg) {
         return (n.getText().hashCode()) * 31 + (n.getAssociatedSpecificationComments().isPresent() ? n.getAssociatedSpecificationComments().get().accept(this, arg) : 0) * 31 + (n.getComment().isPresent() ? n.getComment().get().accept(this, arg) : 0);
+    }
+
+    @Override
+    public Integer visit(final RecordDeclaration n, final Void arg) {
+        return (n.getImplementedTypes().accept(this, arg)) * 31 + (n.getParameters().accept(this, arg)) * 31 + (n.getReceiverParameter().isPresent() ? n.getReceiverParameter().get().accept(this, arg) : 0) * 31 + (n.getTypeParameters().accept(this, arg)) * 31 + (n.getMembers().accept(this, arg)) * 31 + (n.getModifiers().accept(this, arg)) * 31 + (n.getName().accept(this, arg)) * 31 + (n.getAnnotations().accept(this, arg)) * 31 + (n.getAssociatedSpecificationComments().isPresent() ? n.getAssociatedSpecificationComments().get().accept(this, arg) : 0) * 31 + (n.getComment().isPresent() ? n.getComment().get().accept(this, arg) : 0);
+    }
+
+    public Integer visit(final CompactConstructorDeclaration n, final Void arg) {
+        return (n.getBody().accept(this, arg)) * 31 + (n.getModifiers().accept(this, arg)) * 31 + (n.getName().accept(this, arg)) * 31 + (n.getThrownExceptions().accept(this, arg)) * 31 + (n.getTypeParameters().accept(this, arg)) * 31 + (n.getAnnotations().accept(this, arg)) * 31 + (n.getAssociatedSpecificationComments().isPresent() ? n.getAssociatedSpecificationComments().get().accept(this, arg) : 0) * 31 + (n.getComment().isPresent() ? n.getComment().get().accept(this, arg) : 0);
     }
 }

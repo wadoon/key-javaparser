@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2007-2010 Júlio Vilmar Gesser.
- * Copyright (C) 2011, 2013-2021 The JavaParser Team.
+ * Copyright (C) 2011, 2013-2023 The JavaParser Team.
  *
  * This file is part of JavaParser.
  *
@@ -20,8 +20,14 @@
  */
 package com.github.javaparser.ast.body;
 
+import static com.github.javaparser.ast.Modifier.Keyword.STATIC;
+import static com.github.javaparser.ast.NodeList.nodeList;
+import static com.github.javaparser.utils.Utils.assertNotNull;
+import java.util.Optional;
+import java.util.function.Consumer;
 import com.github.javaparser.TokenRange;
 import com.github.javaparser.ast.*;
+import com.github.javaparser.ast.Modifier.Keyword;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.AssignExpr;
 import com.github.javaparser.ast.expr.AssignExpr.Operator;
@@ -44,10 +50,6 @@ import com.github.javaparser.metamodel.JavaParserMetaModel;
 import com.github.javaparser.metamodel.NonEmptyProperty;
 import com.github.javaparser.resolution.Resolvable;
 import com.github.javaparser.resolution.declarations.ResolvedFieldDeclaration;
-import java.util.Optional;
-import java.util.function.Consumer;
-import static com.github.javaparser.ast.NodeList.nodeList;
-import static com.github.javaparser.utils.Utils.assertNotNull;
 
 /**
  * The declaration of a field in a class. "private static int a=15*15;" in this example: {@code class X { private static
@@ -229,6 +231,38 @@ public class FieldDeclaration extends BodyDeclaration<FieldDeclaration> implemen
 
     public FieldDeclaration setVolatile(boolean set) {
         return setModifier(Modifier.Keyword.VOLATILE, set);
+    }
+
+    /*
+     * Every field declaration in the body of an interface is implicitly public, static, and final.
+     */
+    @Override
+    public boolean isStatic() {
+        return hasModifier(STATIC) || isDeclaredInInterface();
+    }
+
+    /*
+     * Every field declaration in the body of an interface is implicitly public, static, and final.
+     */
+    @Override
+    public boolean isFinal() {
+        return hasModifier(Keyword.FINAL) || isDeclaredInInterface();
+    }
+
+    /*
+     * Every field declaration in the body of an interface is implicitly public, static, and final.
+     */
+    @Override
+    public boolean isPublic() {
+        return hasModifier(Keyword.PUBLIC) || isDeclaredInInterface();
+    }
+
+    /*
+     * Returns true if the field is declared in an interface
+     */
+    private boolean isDeclaredInInterface() {
+        Optional<ClassOrInterfaceDeclaration> parentClass = findAncestor(ClassOrInterfaceDeclaration.class);
+        return parentClass.map(parent -> parent.isInterface()).orElse(false);
     }
 
     @Override

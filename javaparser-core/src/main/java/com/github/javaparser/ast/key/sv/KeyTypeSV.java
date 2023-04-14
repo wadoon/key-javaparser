@@ -7,16 +7,17 @@ import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.type.Type;
 import com.github.javaparser.ast.visitor.GenericVisitor;
 import com.github.javaparser.ast.visitor.VoidVisitor;
+import com.github.javaparser.resolution.Context;
 import com.github.javaparser.resolution.types.ResolvedType;
 import java.util.Optional;
 import java.util.function.Consumer;
 import com.github.javaparser.ast.observer.ObservableProperty;
 import static com.github.javaparser.utils.Utils.assertNotNull;
-
 import com.github.javaparser.ast.visitor.CloneVisitor;
 import com.github.javaparser.metamodel.KeyTypeSVMetaModel;
 import com.github.javaparser.metamodel.JavaParserMetaModel;
 import com.github.javaparser.ast.Generated;
+import com.github.javaparser.ast.Node;
 
 public class KeyTypeSV extends Type {
 
@@ -99,7 +100,7 @@ public class KeyTypeSV extends Type {
         if (text == this.text) {
             return this;
         }
-        notifyPropertyChange(ObservableProperty.NAME, this.text, text);
+        notifyPropertyChange(ObservableProperty.TEXT, this.text, text);
         this.text = text;
         return this;
     }
@@ -114,5 +115,11 @@ public class KeyTypeSV extends Type {
     @Generated("com.github.javaparser.generator.core.node.GetMetaModelGenerator")
     public KeyTypeSVMetaModel getMetaModel() {
         return JavaParserMetaModel.keyTypeSVMetaModel;
+    }
+
+    @Override
+    public ResolvedType convertToUsage(Context context) {
+        //TODO weigl what to do?
+        return null;
     }
 }

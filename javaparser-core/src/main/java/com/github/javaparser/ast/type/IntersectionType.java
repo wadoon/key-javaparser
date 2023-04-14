@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2007-2010 Júlio Vilmar Gesser.
- * Copyright (C) 2011, 2013-2021 The JavaParser Team.
+ * Copyright (C) 2011, 2013-2023 The JavaParser Team.
  *
  * This file is part of JavaParser.
  *
@@ -34,7 +34,9 @@ import com.github.javaparser.ast.visitor.VoidVisitor;
 import com.github.javaparser.metamodel.IntersectionTypeMetaModel;
 import com.github.javaparser.metamodel.JavaParserMetaModel;
 import com.github.javaparser.metamodel.NonEmptyProperty;
+import com.github.javaparser.resolution.Context;
 import com.github.javaparser.resolution.types.ResolvedIntersectionType;
+import com.github.javaparser.resolution.types.ResolvedType;
 import java.util.Optional;
 import java.util.function.Consumer;
 import static com.github.javaparser.utils.Utils.assertNotNull;
@@ -182,5 +184,10 @@ public class IntersectionType extends Type implements NodeWithAnnotations<Inters
     @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public Optional<IntersectionType> toIntersectionType() {
         return Optional.of(this);
+    }
+
+    @Override
+    public ResolvedType convertToUsage(Context context) {
+        throw new UnsupportedOperationException(getClass().getCanonicalName());
     }
 }

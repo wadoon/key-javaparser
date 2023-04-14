@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2007-2010 Júlio Vilmar Gesser.
- * Copyright (C) 2011, 2013-2021 The JavaParser Team.
+ * Copyright (C) 2011, 2013-2023 The JavaParser Team.
  *
  * This file is part of JavaParser.
  *
@@ -34,6 +34,7 @@ import com.github.javaparser.metamodel.ModuleRequiresDirectiveMetaModel;
 import java.util.Optional;
 import java.util.function.Consumer;
 import static com.github.javaparser.ast.Modifier.Keyword.TRANSITIVE;
+import static com.github.javaparser.ast.Modifier.Keyword.STATIC;
 import static com.github.javaparser.utils.Utils.assertNotNull;
 
 /**
@@ -115,6 +116,17 @@ public class ModuleRequiresDirective extends ModuleDirective implements NodeWith
         return this;
     }
 
+    /*
+     * A requires static directive indicates that a module is required at compile time, but is optional at runtime. 
+     */
+    public boolean isStatic() {
+        return hasModifier(STATIC);
+    }
+
+    /*
+     * Requires transitive—implied readability. 
+     * To specify a dependency on another module and to ensure that other modules reading your module also read that dependency
+     */
     public boolean isTransitive() {
         return hasModifier(TRANSITIVE);
     }
