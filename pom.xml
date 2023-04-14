@@ -13,15 +13,15 @@
         <!--<module>javaparser-key-generator</module>-->
     </modules>
 
-    <groupId>com.github.javaparser</groupId>
+    <groupId>io.github.wadoon</groupId>
     <artifactId>javaparser-parent</artifactId>
     <packaging>pom</packaging>
     <version>3.25.3-K2-SNAPSHOT</version>
 
     <name>javaparser-parent</name>
-    <url>https://github.com/javaparser</url>
+    <url>https://github.com/wadoon/key-javaparser</url>
     <inceptionYear>2007</inceptionYear>
-    <description>Java Parser and Abstract Syntax Tree for Java</description>
+    <description>Java Parser and Abstract Syntax Tree for KeY-Java</description>
 
     <licenses>
         <license>
