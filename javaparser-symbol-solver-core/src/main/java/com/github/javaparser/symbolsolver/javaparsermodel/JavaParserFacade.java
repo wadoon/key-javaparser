@@ -21,19 +21,14 @@
 
 package com.github.javaparser.symbolsolver.javaparsermodel;
 
-import static com.github.javaparser.resolution.Navigator.demandParentNode;
-import static com.github.javaparser.resolution.model.SymbolReference.solved;
-import static com.github.javaparser.resolution.model.SymbolReference.unsolved;
-
-import java.util.*;
-import java.util.stream.Collectors;
-
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.DataKey;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.expr.*;
+import com.github.javaparser.ast.key.KeyExecutionContext;
+import com.github.javaparser.ast.key.KeyMethodCallStatement;
 import com.github.javaparser.ast.stmt.ExplicitConstructorInvocationStmt;
 import com.github.javaparser.ast.stmt.ForEachStmt;
 import com.github.javaparser.ast.type.Type;
@@ -53,6 +48,13 @@ import com.github.javaparser.symbolsolver.javaparsermodel.declarations.JavaParse
 import com.github.javaparser.symbolsolver.resolution.SymbolSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.ReflectionTypeSolver;
 import com.github.javaparser.utils.Log;
+
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static com.github.javaparser.resolution.Navigator.demandParentNode;
+import static com.github.javaparser.resolution.model.SymbolReference.solved;
+import static com.github.javaparser.resolution.model.SymbolReference.unsolved;
 
 /**
  * Class to be used by final users to solve symbols for JavaParser ASTs.
@@ -557,7 +559,11 @@ public class JavaParserFacade {
         boolean detachFlag = false;
         while (true) {
             parent = demandParentNode(parent);
-            if (parent instanceof BodyDeclaration) {
+            if (parent instanceof KeyMethodCallStatement) {
+                Type type = ((KeyExecutionContext) ((KeyMethodCallStatement) parent).getContext()).getContext();
+                ResolvedReferenceTypeDeclaration rt = typeSolver.solveType(type.asString());
+                return rt.toAst().get();
+            } else if (parent instanceof BodyDeclaration) {
                 if (parent instanceof TypeDeclaration) {
                     return parent;
                 } else {
@@ -597,9 +603,8 @@ public class JavaParserFacade {
     /**
      * Convert a {@link Type} into the corresponding {@link ResolvedType}.
      *
-     * @param type      The type to be converted.
-     * @param context   The current context.
-     *
+     * @param type    The type to be converted.
+     * @param context The current context.
      * @return The type resolved.
      */
     protected ResolvedType convertToUsage(Type type, Context context) {
@@ -613,11 +618,10 @@ public class JavaParserFacade {
      * Convert a {@link Type} into the corresponding {@link ResolvedType}.
      *
      * @param type The type to be converted.
-     *
      * @return The type resolved.
      */
     public ResolvedType convertToUsage(Type type) {
-    	return convertToUsage(type, JavaParserFactory.getContext(type, typeSolver));
+        return convertToUsage(type, JavaParserFactory.getContext(type, typeSolver));
     }
 
     private Optional<ForEachStmt> forEachStmtWithVariableDeclarator(
@@ -630,7 +634,7 @@ public class JavaParserFacade {
         if (!node.isPresent() || !(node.get() instanceof ForEachStmt)) {
             return Optional.empty();
         } else {
-            return Optional.of((ForEachStmt)node.get());
+            return Optional.of((ForEachStmt) node.get());
         }
     }
 
@@ -705,15 +709,13 @@ public class JavaParserFacade {
      * Convert a {@link Class} into the corresponding {@link ResolvedType}.
      *
      * @param clazz The class to be converted.
-     *
      * @return The class resolved.
-     *
      * @deprecated instead consider SymbolSolver.classToResolvedType(Class<?> clazz)
      */
     @Deprecated
     public ResolvedType classToResolvedType(Class<?> clazz) {
-    	Solver symbolSolver = new SymbolSolver(new ReflectionTypeSolver());
-    	return symbolSolver.classToResolvedType(clazz);
+        Solver symbolSolver = new SymbolSolver(new ReflectionTypeSolver());
+        return symbolSolver.classToResolvedType(clazz);
     }
 
 }

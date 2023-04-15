@@ -96,11 +96,13 @@ public class ConcreteSyntaxModel {
         concreteSyntaxModelByClass.put(MethodDeclaration.class, sequence(orphanCommentsBeforeThis(), comment(), mix(memberAnnotations(), modifiers()), typeParameters(), child(ObservableProperty.TYPE), space(), child(ObservableProperty.NAME), token(GeneratedJavaParserConstants.LPAREN), conditional(ObservableProperty.RECEIVER_PARAMETER, IS_PRESENT, sequence(child(ObservableProperty.RECEIVER_PARAMETER), comma(), space())), list(ObservableProperty.PARAMETERS, sequence(comma(), space()), none(), none()), token(GeneratedJavaParserConstants.RPAREN), list(ObservableProperty.THROWN_EXCEPTIONS, sequence(comma(), space()), sequence(space(), token(GeneratedJavaParserConstants.THROWS), space()), none()), conditional(ObservableProperty.BODY, IS_PRESENT, sequence(space(), child(ObservableProperty.BODY)), semicolon())));
         concreteSyntaxModelByClass.put(Parameter.class, sequence(comment(), list(ObservableProperty.ANNOTATIONS, space(), none(), space()), modifiers(), child(ObservableProperty.TYPE), conditional(ObservableProperty.VAR_ARGS, FLAG, sequence(list(ObservableProperty.VAR_ARGS_ANNOTATIONS, space(), none(), none()), token(GeneratedJavaParserConstants.ELLIPSIS))), space(), child(ObservableProperty.NAME)));
         concreteSyntaxModelByClass.put(ReceiverParameter.class, sequence(comment(), list(ObservableProperty.ANNOTATIONS, space(), none(), space()), child(ObservableProperty.TYPE), space(), child(ObservableProperty.NAME)));
-        concreteSyntaxModelByClass.put(VariableDeclarator.class, // FIXME: we should introduce a derived property
+        // FIXME: we should introduce a derived property
+        concreteSyntaxModelByClass.// FIXME: we should introduce a derived property
+        put(// FIXME: we should introduce a derived property
+        VariableDeclarator.class, // FIXME: we should introduce a derived property
         sequence(// FIXME: we should introduce a derived property
-        comment(), // FIXME: we should introduce a derived property
-        child(ObservableProperty.NAME), // list(ObservableProperty.EXTRA_ARRAY_LEVELS),
-        conditional(ObservableProperty.INITIALIZER, IS_PRESENT, sequence(space(), token(GeneratedJavaParserConstants.ASSIGN), space(), child(ObservableProperty.INITIALIZER)))));
+        comment(), // list(ObservableProperty.EXTRA_ARRAY_LEVELS),
+        child(ObservableProperty.NAME), conditional(ObservableProperty.INITIALIZER, IS_PRESENT, sequence(space(), token(GeneratedJavaParserConstants.ASSIGN), space(), child(ObservableProperty.INITIALIZER)))));
         // /
         // / Expressions
         // /

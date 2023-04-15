@@ -320,6 +320,7 @@ public final class JavaParserMetaModel {
         keyRangeExpressionMetaModel.getConstructorParameters().add(keyRangeExpressionMetaModel.lowerPropertyMetaModel);
         keyRangeExpressionMetaModel.getConstructorParameters().add(keyRangeExpressionMetaModel.upperPropertyMetaModel);
         keyTransactionStatementMetaModel.getConstructorParameters().add(keyTransactionStatementMetaModel.typePropertyMetaModel);
+        keyActiveCommentStatementMetaModel.getConstructorParameters().add(keyActiveCommentStatementMetaModel.contentPropertyMetaModel);
         keyContextStatementBlockMetaModel.getConstructorParameters().add(keyContextStatementBlockMetaModel.statementsPropertyMetaModel);
         keyContextStatementBlockMetaModel.getConstructorParameters().add(keyContextStatementBlockMetaModel.contextPropertyMetaModel);
         keyContextStatementBlockMetaModel.getConstructorParameters().add(keyContextStatementBlockMetaModel.trPropertyMetaModel);
@@ -401,6 +402,7 @@ public final class JavaParserMetaModel {
         nodeMetaModels.add(intersectionTypeMetaModel);
         nodeMetaModels.add(javadocCommentMetaModel);
         nodeMetaModels.add(keyAbstractExecutionContextMetaModel);
+        nodeMetaModels.add(keyActiveCommentStatementMetaModel);
         nodeMetaModels.add(keyCatchAllStatementMetaModel);
         nodeMetaModels.add(keyCcatchBranchMetaModel);
         nodeMetaModels.add(keyCcatchBreakMetaModel);
@@ -990,6 +992,8 @@ public final class JavaParserMetaModel {
         keyRangeExpressionMetaModel.getDeclaredPropertyMetaModels().add(keyRangeExpressionMetaModel.upperPropertyMetaModel);
         keyTransactionStatementMetaModel.typePropertyMetaModel = new PropertyMetaModel(keyTransactionStatementMetaModel, "type", com.github.javaparser.ast.key.KeyTransactionStatement.TransactionType.class, Optional.empty(), false, false, false, false);
         keyTransactionStatementMetaModel.getDeclaredPropertyMetaModels().add(keyTransactionStatementMetaModel.typePropertyMetaModel);
+        keyActiveCommentStatementMetaModel.contentPropertyMetaModel = new PropertyMetaModel(keyActiveCommentStatementMetaModel, "content", java.lang.String.class, Optional.empty(), false, false, false, false);
+        keyActiveCommentStatementMetaModel.getDeclaredPropertyMetaModels().add(keyActiveCommentStatementMetaModel.contentPropertyMetaModel);
         keyContextStatementBlockMetaModel.contextPropertyMetaModel = new PropertyMetaModel(keyContextStatementBlockMetaModel, "context", com.github.javaparser.ast.key.sv.KeyExecCtxtSV.class, Optional.of(keyExecCtxtSVMetaModel), true, false, false, false);
         keyContextStatementBlockMetaModel.getDeclaredPropertyMetaModels().add(keyContextStatementBlockMetaModel.contextPropertyMetaModel);
         keyContextStatementBlockMetaModel.expressionPropertyMetaModel = new PropertyMetaModel(keyContextStatementBlockMetaModel, "expression", com.github.javaparser.ast.key.sv.KeyExpressionSV.class, Optional.of(keyExpressionSVMetaModel), true, false, false, false);
@@ -1431,6 +1435,9 @@ public final class JavaParserMetaModel {
 
     @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
     public static final KeyTransactionStatementMetaModel keyTransactionStatementMetaModel = new KeyTransactionStatementMetaModel(Optional.of(statementMetaModel));
+
+    @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
+    public static final KeyActiveCommentStatementMetaModel keyActiveCommentStatementMetaModel = new KeyActiveCommentStatementMetaModel(Optional.of(statementMetaModel));
 
     @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
     public static final KeyContextStatementBlockMetaModel keyContextStatementBlockMetaModel = new KeyContextStatementBlockMetaModel(Optional.of(statementMetaModel));

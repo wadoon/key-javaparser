@@ -25,13 +25,24 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.*;
 import com.github.javaparser.ast.expr.*;
+import com.github.javaparser.ast.key.KeyAbstractExecutionContext;
+import com.github.javaparser.ast.key.KeyExecutionContext;
+import com.github.javaparser.ast.key.KeyMethodCallStatement;
 import com.github.javaparser.ast.stmt.*;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.resolution.Context;
 import com.github.javaparser.resolution.SymbolDeclarator;
 import com.github.javaparser.resolution.TypeSolver;
+import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
+import com.github.javaparser.resolution.declarations.ResolvedReferenceTypeDeclaration;
+import com.github.javaparser.resolution.logic.MethodResolutionLogic;
+import com.github.javaparser.resolution.model.SymbolReference;
+import com.github.javaparser.resolution.types.ResolvedType;
 import com.github.javaparser.symbolsolver.javaparsermodel.contexts.*;
 import com.github.javaparser.symbolsolver.javaparsermodel.declarators.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.github.javaparser.resolution.Navigator.demandParentNode;
 
@@ -44,6 +55,30 @@ public class JavaParserFactory {
         if (node == null) {
             throw new NullPointerException("Node should not be null");
         }
+
+        //region KEY
+        if(node instanceof KeyMethodCallStatement) {
+            KeyAbstractExecutionContext n = ((KeyMethodCallStatement) node).getContext();
+            return getContext(n, typeSolver);
+        }
+
+        if(node instanceof KeyExecutionContext) {
+            KeyExecutionContext c = ((KeyExecutionContext) node);
+            ResolvedReferenceTypeDeclaration rt = typeSolver.solveType(c.getContext().asString());
+            String name = c.getSignature().getName().asString();
+            JavaParserFacade facade = JavaParserFacade.get(typeSolver);
+            Context clazzContext = getContext(rt.toAst().get(), typeSolver);
+            List<ResolvedType> argumentTypes = c.getSignature().getParamTypes().stream().map(
+                    it -> facade.convertToUsage(it, clazzContext)
+            ).collect(Collectors.toList());
+            SymbolReference<ResolvedMethodDeclaration> method = MethodResolutionLogic.solveMethodInType(rt, name, argumentTypes);
+            if(method.isSolved()) {
+                return getContext(method.getCorrespondingDeclaration().toAst().get(), typeSolver);
+            }
+            return null;
+        }
+        //endregion
+
 
         // TODO: Is order important here?
         if (node instanceof ArrayAccessExpr) {

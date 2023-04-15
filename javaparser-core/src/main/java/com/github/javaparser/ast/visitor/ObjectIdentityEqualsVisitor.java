@@ -689,4 +689,9 @@ public class ObjectIdentityEqualsVisitor implements GenericVisitor<Boolean, Visi
     public Boolean visit(final KeyExecutionContextSV n, final Visitable arg) {
         return n == arg;
     }
+
+    @Override
+    public Boolean visit(final KeyActiveCommentStatement n, final Visitable arg) {
+        return n == arg;
+    }
 }

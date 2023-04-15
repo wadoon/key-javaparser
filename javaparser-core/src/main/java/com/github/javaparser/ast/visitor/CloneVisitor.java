@@ -1753,4 +1753,15 @@ public class CloneVisitor implements GenericVisitor<Visitable, Object> {
         copyData(n, r);
         return r;
     }
+
+    @Override
+    public Visitable visit(final KeyActiveCommentStatement n, final Object arg) {
+        NodeList<Comment> associatedSpecificationComments = cloneList(n.getAssociatedSpecificationComments().orElse(null), arg);
+        Comment comment = cloneNode(n.getComment(), arg);
+        KeyActiveCommentStatement r = new KeyActiveCommentStatement(n.getTokenRange().orElse(null), n.getContent());
+        r.setComment(comment);
+        n.getOrphanComments().stream().map(Comment::clone).forEach(r::addOrphanComment);
+        copyData(n, r);
+        return r;
+    }
 }

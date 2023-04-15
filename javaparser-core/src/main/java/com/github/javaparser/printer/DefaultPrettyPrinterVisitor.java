@@ -812,12 +812,24 @@ public class DefaultPrettyPrinterVisitor implements VoidVisitor<Void> {
     public void visit(KeyExecutionContext n, Void arg) {
         printOrphanCommentsBeforeThisChildNode(n);
         printComment(n.getComment(), arg);
+        printer.print("source=");
+        n.getSignature().accept(this, arg);
+        printer.print("@");
+        n.getContext().accept(this, arg);
+        if (n.getInstance().isPresent()) {
+            printer.print(", this=");
+            n.getInstance().get().accept(this, arg);
+        }
     }
 
     @Override
     public void visit(KeyLoopScopeBlock n, Void arg) {
         printOrphanCommentsBeforeThisChildNode(n);
         printComment(n.getComment(), arg);
+        printer.print("$loopScope(");
+        n.getIndexPV().accept(this, arg);
+        printer.print(") ");
+        n.getBlock().accept(this, arg);
     }
 
     @Override
@@ -1001,6 +1013,13 @@ public class DefaultPrettyPrinterVisitor implements VoidVisitor<Void> {
         printOrphanCommentsBeforeThisChildNode(n);
         printComment(n.getComment(), arg);
         printer.print(n.getText());
+    }
+
+    @Override
+    public void visit(KeyActiveCommentStatement n, Void arg) {
+        printOrphanCommentsBeforeThisChildNode(n);
+        printComment(n.getComment(), arg);
+        printer.print("//K " + n.getContent() + "\n");
     }
 
     @Override
@@ -1574,10 +1593,10 @@ public class DefaultPrettyPrinterVisitor implements VoidVisitor<Void> {
         printer.println(" {");
         printer.indent();
         if (n.getEntries().isNonEmpty()) {
-            final // Either we hit the constant amount limit in the configurations, or...
-            boolean // Either we hit the constant amount limit in the configurations, or...
-            alignVertically = // any of the constants has a comment.
-            n.getEntries().size() > getOption(ConfigOption.MAX_ENUM_CONSTANTS_TO_ALIGN_HORIZONTALLY).get().asInteger() || n.getEntries().stream().anyMatch(e -> e.getComment().isPresent());
+            final boolean // Either we hit the constant amount limit in the configurations, or...
+            // Either we hit the constant amount limit in the configurations, or...
+            // any of the constants has a comment.
+            alignVertically = n.getEntries().size() > getOption(ConfigOption.MAX_ENUM_CONSTANTS_TO_ALIGN_HORIZONTALLY).get().asInteger() || n.getEntries().stream().anyMatch(e -> e.getComment().isPresent());
             printer.println();
             for (final Iterator<EnumConstantDeclaration> i = n.getEntries().iterator(); i.hasNext(); ) {
                 final EnumConstantDeclaration e = i.next();

@@ -693,4 +693,19 @@ public abstract class Statement extends Node {
     @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifKeyStatementSV(Consumer<KeyStatementSV> action) {
     }
+
+    public boolean isKeyActiveCommentStatement() {
+        return false;
+    }
+
+    public KeyActiveCommentStatement asKeyActiveCommentStatement() {
+        throw new IllegalStateException(f("%s is not KeyActiveCommentStatement, it is %s", this, this.getClass().getSimpleName()));
+    }
+
+    public Optional<KeyActiveCommentStatement> toKeyActiveCommentStatement() {
+        return Optional.empty();
+    }
+
+    public void ifKeyActiveCommentStatement(Consumer<KeyActiveCommentStatement> action) {
+    }
 }

@@ -156,13 +156,15 @@ public class LexicalPreservingPrinter {
             }
             if (property == ObservableProperty.COMMENT) {
                 Optional<Node> parentNode = observedNode.getParentNode();
-                NodeText nodeText = // We're at the root node.
-                parentNode.map(parent -> getOrCreateNodeText(parentNode.get())).orElse(getOrCreateNodeText(observedNode));
+                // We're at the root node.
+                NodeText // We're at the root node.
+                nodeText = parentNode.map(parent -> getOrCreateNodeText(parentNode.get())).orElse(getOrCreateNodeText(observedNode));
                 if (oldValue == null) {
                     // this case corresponds to the addition of a comment
-                    int index = // Find the position of the comment node and put in front of it the [...]
-                    parentNode.isPresent() ? //
-                    nodeText.findChild(observedNode) : 0;
+                    // Find the position of the comment node and put in front of it the [...]
+                    int // Find the position of the comment node and put in front of it the [...]
+                    index = //
+                    parentNode.isPresent() ? nodeText.findChild(observedNode) : 0;
                     // Add the same indent depth of the comment to the following node
                     fixIndentOfMovedNode(nodeText, index);
                     LineSeparator lineSeparator = observedNode.getLineEndingStyleOrDefault(LineSeparator.SYSTEM);

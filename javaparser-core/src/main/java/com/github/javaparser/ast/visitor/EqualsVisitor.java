@@ -2007,4 +2007,16 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Visitable> {
             return false;
         return true;
     }
+
+    @Override
+    public Boolean visit(final KeyActiveCommentStatement n, final Visitable arg) {
+        final KeyActiveCommentStatement n2 = (KeyActiveCommentStatement) arg;
+        if (!objEquals(n.getContent(), n2.getContent()))
+            return false;
+        if (!nodesEquals(n.getAssociatedSpecificationComments(), n2.getAssociatedSpecificationComments()))
+            return false;
+        if (!nodeEquals(n.getComment(), n2.getComment()))
+            return false;
+        return true;
+    }
 }
