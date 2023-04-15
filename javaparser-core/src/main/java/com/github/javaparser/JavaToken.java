@@ -875,7 +875,7 @@ public class JavaToken {
                     return BYTE;
                 case 14:
                     return BREAK;
-                case 13:
+                case GeneratedJavaParserConstants.ASSERT:
                     return BOOLEAN;
                 case 12:
                     return ASSERT;

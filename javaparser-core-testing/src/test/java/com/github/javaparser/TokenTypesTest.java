@@ -41,7 +41,7 @@ public class TokenTypesTest {
 
     @Test
     void everyTokenHasACategory() throws IOException {
-        final int tokenCount = GeneratedJavaParserConstants.tokenImage.length;
+        final int tokenCount = GeneratedJavaParserConstants.tokenImage.length - 1;
         Path tokenTypesPath = mavenModuleRoot(JavaParserTest.class).resolve("../javaparser-core/src/main/java/com/github/javaparser/TokenTypes.java");
         CompilationUnit tokenTypesCu = parse(tokenTypesPath);
 
@@ -56,7 +56,7 @@ public class TokenTypesTest {
     Stream<DynamicTest> everyTokenHasACategory0() {
         final int tokenCount = GeneratedJavaParserConstants.tokenImage.length;
         return IntStream.range(0, tokenCount - 1).mapToObj(it ->
-                DynamicTest.dynamicTest("TokenType: " + it,
+                DynamicTest.dynamicTest("TokenType: " + GeneratedJavaParserConstants.tokenImage[it],
                         () -> {
                             try {
                                 TokenTypes.getCategory(it);

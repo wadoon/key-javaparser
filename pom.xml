@@ -39,6 +39,12 @@
 
     <developers>
         <developer>
+            <name>Alexander Weigl</name>
+            <email>weigl@kit.edu</email>
+            <url>https://formal.iti.kit.edu/weigl</url>
+            <id>wadoon</id>
+        </developer>
+        <developer>
             <name>Danny van Bruggen</name>
             <email>hexagonaal@gmail.com</email>
             <url>https://github.com/matozoid</url>
@@ -160,15 +166,15 @@
     </properties>
 
     <scm>
-        <connection>scm:git:git://github.com/javaparser/javaparser.git</connection>
-        <developerConnection>scm:git:git@github.com:javaparser/javaparser.git</developerConnection>
-        <url>https://github.com/javaparser/javaparser.git</url>
+        <connection>scm:git:git://github.com/wadoon/key-javaparser.git</connection>
+        <developerConnection>scm:git:git@github.com:wadoon/key-javaparser.git</developerConnection>
+        <url>https://github.com/wadoon/key-javaparser.git</url>
         <tag>HEAD</tag>
     </scm>
 
     <issueManagement>
         <system>GitHub Issue Tracker</system>
-        <url>https://github.com/javaparser/javaparser/issues</url>
+        <url>https://github.com/wadoon/key-javaparser/issues</url>
     </issueManagement>
 
     <distributionManagement>

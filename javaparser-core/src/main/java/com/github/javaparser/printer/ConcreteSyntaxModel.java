@@ -35,8 +35,10 @@ import com.github.javaparser.metamodel.JavaParserMetaModel;
 import com.github.javaparser.printer.concretesyntaxmodel.CsmConditional;
 import com.github.javaparser.printer.concretesyntaxmodel.CsmElement;
 import com.github.javaparser.printer.concretesyntaxmodel.CsmMix;
+
 import java.util.*;
 import java.util.stream.Collectors;
+
 import static com.github.javaparser.GeneratedJavaParserConstants.*;
 import static com.github.javaparser.ast.observer.ObservableProperty.*;
 import static com.github.javaparser.printer.concretesyntaxmodel.CsmConditional.Condition.*;
@@ -98,11 +100,11 @@ public class ConcreteSyntaxModel {
         concreteSyntaxModelByClass.put(ReceiverParameter.class, sequence(comment(), list(ObservableProperty.ANNOTATIONS, space(), none(), space()), child(ObservableProperty.TYPE), space(), child(ObservableProperty.NAME)));
         // FIXME: we should introduce a derived property
         concreteSyntaxModelByClass.// FIXME: we should introduce a derived property
-        put(// FIXME: we should introduce a derived property
-        VariableDeclarator.class, // FIXME: we should introduce a derived property
-        sequence(// FIXME: we should introduce a derived property
-        comment(), // list(ObservableProperty.EXTRA_ARRAY_LEVELS),
-        child(ObservableProperty.NAME), conditional(ObservableProperty.INITIALIZER, IS_PRESENT, sequence(space(), token(GeneratedJavaParserConstants.ASSIGN), space(), child(ObservableProperty.INITIALIZER)))));
+                put(// FIXME: we should introduce a derived property
+                VariableDeclarator.class, // FIXME: we should introduce a derived property
+                sequence(// FIXME: we should introduce a derived property
+                        comment(), // list(ObservableProperty.EXTRA_ARRAY_LEVELS),
+                        child(ObservableProperty.NAME), conditional(ObservableProperty.INITIALIZER, IS_PRESENT, sequence(space(), token(GeneratedJavaParserConstants.ASSIGN), space(), child(ObservableProperty.INITIALIZER)))));
         // /
         // / Expressions
         // /
@@ -231,6 +233,9 @@ public class ConcreteSyntaxModel {
         concreteSyntaxModelByClass.put(KeyStatementSV.class, attribute(TEXT));
         concreteSyntaxModelByClass.put(KeyTransactionStatement.class, sequence());
         concreteSyntaxModelByClass.put(KeyTypeSV.class, attribute(TEXT));
+        concreteSyntaxModelByClass.put(KeyActiveCommentStatement.class, sequence(
+                string(SINGLE_LINE_COMMENT, "//!"),
+                attribute(CONTENT), newline()));
         List<String> unsupportedNodeClassNames = JavaParserMetaModel.getNodeMetaModels().stream().filter(c -> !c.isAbstract() && !Comment.class.isAssignableFrom(c.getType()) && !concreteSyntaxModelByClass.containsKey(c.getType())).map(nm -> nm.getType().getSimpleName()).collect(Collectors.toList());
         if (unsupportedNodeClassNames.isEmpty()) {
             initializationError = Optional.empty();

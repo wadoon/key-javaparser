@@ -106,6 +106,7 @@ public class TokenTypes {
             case SINGLE_LINE_COMMENT:
             case JAVADOC_COMMENT:
             case MULTI_LINE_COMMENT:
+            case SPECIAL_KEY_COMMENT:
                 return JavaToken.Category.COMMENT;
             case ABSTRACT:
             case ASSERT:
