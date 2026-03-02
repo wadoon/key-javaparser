@@ -44,7 +44,7 @@ options {
     ERROR_REPORTING = true;
     JAVA_TEMPLATE_TYPE = "modern"; // FIXME: Warning: Bad option name "JAVA_TEMPLATE_TYPE".  Option setting will be ignored.
     JDK_VERSION = "1.8";
-    //STATIC = false;
+    STATIC = false;
     TOKEN_EXTENDS = "TokenBase";
     //DEBUG_LOOKAHEAD = true;
     //DEBUG_PARSER = true;
