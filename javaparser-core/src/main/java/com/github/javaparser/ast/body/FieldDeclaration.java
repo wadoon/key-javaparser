@@ -20,13 +20,13 @@
  */
 package com.github.javaparser.ast.body;
 
-import static com.github.javaparser.ast.Modifier.Keyword.STATIC;
+import static com.github.javaparser.ast.Modifier.DefaultKeyword.STATIC;
 import static com.github.javaparser.ast.NodeList.nodeList;
 import static com.github.javaparser.utils.Utils.assertNotNull;
 
 import com.github.javaparser.TokenRange;
 import com.github.javaparser.ast.*;
-import com.github.javaparser.ast.Modifier.Keyword;
+import com.github.javaparser.ast.Modifier.DefaultKeyword;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.AssignExpr;
 import com.github.javaparser.ast.expr.AssignExpr.Operator;
@@ -197,8 +197,8 @@ public class FieldDeclaration extends BodyDeclaration<FieldDeclaration>
         String fieldNameUpper = fieldName.toUpperCase().substring(0, 1) + fieldName.substring(1, fieldName.length());
         final MethodDeclaration getter;
         getter = parentClass
-                .map(clazz -> clazz.addMethod("get" + fieldNameUpper, Modifier.Keyword.PUBLIC))
-                .orElseGet(() -> parentEnum.get().addMethod("get" + fieldNameUpper, Modifier.Keyword.PUBLIC));
+                .map(clazz -> clazz.addMethod("get" + fieldNameUpper, DefaultKeyword.PUBLIC))
+                .orElseGet(() -> parentEnum.get().addMethod("get" + fieldNameUpper, DefaultKeyword.PUBLIC));
         getter.setType(variable.getType());
         BlockStmt blockStmt = new BlockStmt();
         getter.setBody(blockStmt);
@@ -227,8 +227,8 @@ public class FieldDeclaration extends BodyDeclaration<FieldDeclaration>
         String fieldNameUpper = fieldName.toUpperCase().substring(0, 1) + fieldName.substring(1, fieldName.length());
         final MethodDeclaration setter;
         setter = parentClass
-                .map(clazz -> clazz.addMethod("set" + fieldNameUpper, Modifier.Keyword.PUBLIC))
-                .orElseGet(() -> parentEnum.get().addMethod("set" + fieldNameUpper, Modifier.Keyword.PUBLIC));
+                .map(clazz -> clazz.addMethod("set" + fieldNameUpper, DefaultKeyword.PUBLIC))
+                .orElseGet(() -> parentEnum.get().addMethod("set" + fieldNameUpper, DefaultKeyword.PUBLIC));
         setter.setType(new VoidType());
         setter.getParameters().add(new Parameter(variable.getType(), fieldName));
         BlockStmt blockStmt2 = new BlockStmt();
@@ -239,19 +239,19 @@ public class FieldDeclaration extends BodyDeclaration<FieldDeclaration>
     }
 
     public boolean isTransient() {
-        return hasModifier(Modifier.Keyword.TRANSIENT);
+        return hasModifier(DefaultKeyword.TRANSIENT);
     }
 
     public boolean isVolatile() {
-        return hasModifier(Modifier.Keyword.VOLATILE);
+        return hasModifier(DefaultKeyword.VOLATILE);
     }
 
     public FieldDeclaration setTransient(boolean set) {
-        return setModifier(Modifier.Keyword.TRANSIENT, set);
+        return setModifier(DefaultKeyword.TRANSIENT, set);
     }
 
     public FieldDeclaration setVolatile(boolean set) {
-        return setModifier(Modifier.Keyword.VOLATILE, set);
+        return setModifier(DefaultKeyword.VOLATILE, set);
     }
 
     /*
@@ -267,7 +267,7 @@ public class FieldDeclaration extends BodyDeclaration<FieldDeclaration>
      */
     @Override
     public boolean isFinal() {
-        return hasModifier(Keyword.FINAL) || isDeclaredInInterface();
+        return hasModifier(Modifier.DefaultKeyword.FINAL) || isDeclaredInInterface();
     }
 
     /*
@@ -275,7 +275,7 @@ public class FieldDeclaration extends BodyDeclaration<FieldDeclaration>
      */
     @Override
     public boolean isPublic() {
-        return hasModifier(Keyword.PUBLIC) || isDeclaredInInterface();
+        return hasModifier(DefaultKeyword.PUBLIC) || isDeclaredInInterface();
     }
 
     /*

@@ -234,7 +234,7 @@ public class Java1_0Validator extends Validators {
 
     final Validator noSealedClasses = new SimpleValidator<>(
             ClassOrInterfaceDeclaration.class,
-            n -> n.hasModifier(Modifier.Keyword.SEALED) || n.hasModifier(Modifier.Keyword.NON_SEALED),
+            n -> n.hasModifier(Modifier.DefaultKeyword.SEALED) || n.hasModifier(Modifier.DefaultKeyword.NON_SEALED),
             (n, reporter) -> reporter.report(
                     n,
                     new UpgradeJavaMessage(

@@ -192,7 +192,7 @@ public class ClassOrInterfaceDeclaration extends TypeDeclaration<ClassOrInterfac
         NodeList<Modifier> modifiers = getModifiers();
         if (modifiers != null) {
             getModifiers().forEach(modifier -> {
-                if (modifier.getKeyword().equals(Modifier.Keyword.FINAL)) {
+                if (modifier.getKeyword().equals(Modifier.DefaultKeyword.FINAL)) {
                     modifier.setData(PHANTOM_KEY, newIsCompact);
                 }
             });
@@ -228,7 +228,7 @@ public class ClassOrInterfaceDeclaration extends TypeDeclaration<ClassOrInterfac
                             @SuppressWarnings("unchecked")
                             NodeList<Modifier> newModifiers = (NodeList<Modifier>) newValue;
                             newModifiers.forEach(modifier -> {
-                                if (modifier.getKeyword().equals(Modifier.Keyword.FINAL)) {
+                                if (modifier.getKeyword().equals(Modifier.DefaultKeyword.FINAL)) {
                                     modifier.setData(PHANTOM_KEY, isCompact);
                                 }
                             });

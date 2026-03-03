@@ -21,6 +21,8 @@
 package com.github.javaparser.metamodel;
 
 import com.github.javaparser.ast.Generated;
+import com.github.javaparser.ast.Modifier;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -1091,7 +1093,7 @@ public final class JavaParserMetaModel {
         modifierMetaModel.keywordPropertyMetaModel = new PropertyMetaModel(
                 modifierMetaModel,
                 "keyword",
-                com.github.javaparser.ast.Modifier.Keyword.class,
+                Modifier.DefaultKeyword.class,
                 Optional.empty(),
                 false,
                 false,

@@ -479,7 +479,7 @@ abstract class GeneratedJavaParserBase {
             compactClass.setTokenRange(tokenRange);
         }
         compactClass.setCompact(true);
-        compactClass.addModifier(Modifier.Keyword.FINAL);
+        compactClass.addModifier(Modifier.DefaultKeyword.FINAL);
 
         for (BodyDeclaration<?> bodyDeclaration : bodyDeclarations) {
             compactClass.addMember(bodyDeclaration);

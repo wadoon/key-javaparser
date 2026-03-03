@@ -20,8 +20,8 @@
  */
 package com.github.javaparser.ast.modules;
 
-import static com.github.javaparser.ast.Modifier.Keyword.STATIC;
-import static com.github.javaparser.ast.Modifier.Keyword.TRANSITIVE;
+import static com.github.javaparser.ast.Modifier.DefaultKeyword.STATIC;
+import static com.github.javaparser.ast.Modifier.DefaultKeyword.TRANSITIVE;
 import static com.github.javaparser.utils.Utils.assertNotNull;
 
 import com.github.javaparser.TokenRange;

@@ -21,7 +21,7 @@ package com.github.javaparser.printer.lexicalpreservation;
  * GNU Lesser General Public License for more details.
  */
 
-import com.github.javaparser.ast.Modifier.Keyword;
+import com.github.javaparser.ast.Modifier.DefaultKeyword;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
@@ -46,7 +46,7 @@ public class Issue1467Test extends AbstractLexicalPreservingTest {
                 + "        throw new UnsupportedOperationException(\"Not supported yet.\");\n" + "    }";
         // add method declaration
         MethodDeclaration decl =
-                cu.getChildNodesByType(ClassOrInterfaceDeclaration.class).get(0).addMethod("f", Keyword.PUBLIC);
+                cu.getChildNodesByType(ClassOrInterfaceDeclaration.class).get(0).addMethod("f", DefaultKeyword.PUBLIC);
         // create body
         BlockStmt body = new BlockStmt();
         NodeList<Statement> statements = new NodeList<>();

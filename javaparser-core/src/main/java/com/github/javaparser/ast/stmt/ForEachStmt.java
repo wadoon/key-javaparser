@@ -176,7 +176,7 @@ public class ForEachStmt extends Statement implements NodeWithBody<ForEachStmt> 
      */
     public boolean hasFinalVariable() {
         return getVariable().getModifiers().isNonEmpty()
-                && getVariable().getModifiers().get(0).getKeyword() == Modifier.Keyword.FINAL;
+                && getVariable().getModifiers().get(0).getKeyword() == Modifier.DefaultKeyword.FINAL;
     }
 
     @Override

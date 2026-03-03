@@ -159,23 +159,23 @@ class CompactClassDeclarationTest {
         assertTrue(members.get(0).isFieldDeclaration());
         FieldDeclaration greetingField = members.get(0).asFieldDeclaration();
         assertEquals("GREETING", greetingField.getVariable(0).getNameAsString());
-        assertTrue(greetingField.hasModifier(Modifier.Keyword.STATIC));
-        assertTrue(greetingField.hasModifier(Modifier.Keyword.FINAL));
+        assertTrue(greetingField.hasModifier(Modifier.DefaultKeyword.STATIC));
+        assertTrue(greetingField.hasModifier(Modifier.DefaultKeyword.FINAL));
 
         assertTrue(members.get(1).isFieldDeclaration());
         FieldDeclaration nameField = members.get(1).asFieldDeclaration();
         assertEquals("name", nameField.getVariable(0).getNameAsString());
-        assertFalse(nameField.hasModifier(Modifier.Keyword.STATIC));
+        assertFalse(nameField.hasModifier(Modifier.DefaultKeyword.STATIC));
 
         assertTrue(members.get(2).isMethodDeclaration());
         MethodDeclaration formatMethod = members.get(2).asMethodDeclaration();
         assertEquals("formatMessage", formatMethod.getNameAsString());
-        assertTrue(formatMethod.hasModifier(Modifier.Keyword.STATIC));
+        assertTrue(formatMethod.hasModifier(Modifier.DefaultKeyword.STATIC));
 
         assertTrue(members.get(3).isMethodDeclaration());
         MethodDeclaration mainMethod = members.get(3).asMethodDeclaration();
         assertEquals("main", mainMethod.getNameAsString());
-        assertFalse(mainMethod.hasModifier(Modifier.Keyword.STATIC));
+        assertFalse(mainMethod.hasModifier(Modifier.DefaultKeyword.STATIC));
     }
 
     @Test

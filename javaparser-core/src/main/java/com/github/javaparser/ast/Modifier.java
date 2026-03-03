@@ -40,65 +40,72 @@ import org.jspecify.annotations.NonNull;
 public class Modifier extends Node {
 
     public static Modifier publicModifier() {
-        return new Modifier(Keyword.PUBLIC);
+        return new Modifier(DefaultKeyword.PUBLIC);
     }
 
     public static Modifier protectedModifier() {
-        return new Modifier(Keyword.PROTECTED);
+        return new Modifier(DefaultKeyword.PROTECTED);
     }
 
     public static Modifier privateModifier() {
-        return new Modifier(Keyword.PRIVATE);
+        return new Modifier(DefaultKeyword.PRIVATE);
     }
 
     public static Modifier abstractModifier() {
-        return new Modifier(Keyword.ABSTRACT);
+        return new Modifier(DefaultKeyword.ABSTRACT);
     }
 
     public static Modifier staticModifier() {
-        return new Modifier(Keyword.STATIC);
+        return new Modifier(DefaultKeyword.STATIC);
     }
 
     public static Modifier finalModifier() {
-        return new Modifier(Keyword.FINAL);
+        return new Modifier(DefaultKeyword.FINAL);
     }
 
     public static Modifier transientModifier() {
-        return new Modifier(Keyword.TRANSIENT);
+        return new Modifier(DefaultKeyword.TRANSIENT);
     }
 
     public static Modifier volatileModifier() {
-        return new Modifier(Keyword.VOLATILE);
+        return new Modifier(DefaultKeyword.VOLATILE);
     }
 
     public static Modifier synchronizedModifier() {
-        return new Modifier(Keyword.SYNCHRONIZED);
+        return new Modifier(DefaultKeyword.SYNCHRONIZED);
     }
 
     public static Modifier nativeModifier() {
-        return new Modifier(Keyword.NATIVE);
+        return new Modifier(DefaultKeyword.NATIVE);
     }
 
     public static Modifier strictfpModifier() {
-        return new Modifier(Keyword.STRICTFP);
+        return new Modifier(DefaultKeyword.STRICTFP);
     }
 
     public static Modifier transitiveModifier() {
-        return new Modifier(Keyword.TRANSITIVE);
+        return new Modifier(DefaultKeyword.TRANSITIVE);
     }
 
     public static Modifier sealedModifier() {
-        return new Modifier(Keyword.SEALED);
+        return new Modifier(DefaultKeyword.SEALED);
     }
 
     public static Modifier nonSealedModifier() {
-        return new Modifier(Keyword.NON_SEALED);
+        return new Modifier(DefaultKeyword.NON_SEALED);
+    }
+
+
+    public interface Keyword {
+        String name();
+
+        String asString();
     }
 
     /**
      * The Java modifier keywords.
      */
-    public enum Keyword {
+    public enum DefaultKeyword implements Keyword  {
         DEFAULT("default"),
         PUBLIC("public"),
         PROTECTED("protected"),
@@ -122,7 +129,7 @@ public class Modifier extends Node {
 
         private final String codeRepresentation;
 
-        Keyword(String codeRepresentation) {
+        DefaultKeyword(String codeRepresentation) {
             this.codeRepresentation = codeRepresentation;
         }
 
@@ -137,7 +144,7 @@ public class Modifier extends Node {
     private Keyword keyword;
 
     public Modifier() {
-        this(Keyword.PUBLIC);
+        this(DefaultKeyword.PUBLIC);
     }
 
     @AllFieldsConstructor
@@ -173,7 +180,7 @@ public class Modifier extends Node {
     }
 
     @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
-    public Modifier setKeyword(final @NonNull() Keyword keyword) {
+    public Modifier setKeyword(final Modifier.Keyword keyword) {
         assertNotNull(keyword);
         if (keyword == this.keyword) {
             return this;
@@ -187,7 +194,7 @@ public class Modifier extends Node {
      * Utility method that instantiaties "Modifier"s for the keywords,
      * and puts them in a NodeList.
      */
-    public static NodeList<Modifier> createModifierList(Modifier.Keyword... modifiers) {
+    public static NodeList<Modifier> createModifierList(DefaultKeyword... modifiers) {
         return Arrays.stream(modifiers).map(Modifier::new).collect(toNodeList());
     }
 
@@ -205,7 +212,7 @@ public class Modifier extends Node {
 
     @com.github.javaparser.ast.key.IgnoreLexPrinting()
     @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
-    public @NonNull() Keyword keyword() {
+    public Modifier.@NonNull() Keyword keyword() {
         return Objects.requireNonNull(keyword);
     }
 }

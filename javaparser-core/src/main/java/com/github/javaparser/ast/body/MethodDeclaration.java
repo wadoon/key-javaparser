@@ -20,12 +20,12 @@
  */
 package com.github.javaparser.ast.body;
 
-import static com.github.javaparser.ast.Modifier.Keyword.PUBLIC;
+import static com.github.javaparser.ast.Modifier.DefaultKeyword.PUBLIC;
 import static com.github.javaparser.utils.Utils.assertNotNull;
 
 import com.github.javaparser.TokenRange;
 import com.github.javaparser.ast.*;
-import com.github.javaparser.ast.Modifier.Keyword;
+import com.github.javaparser.ast.Modifier.DefaultKeyword;
 import com.github.javaparser.ast.expr.AnnotationExpr;
 import com.github.javaparser.ast.expr.SimpleName;
 import com.github.javaparser.ast.nodeTypes.*;
@@ -374,32 +374,32 @@ public class MethodDeclaration extends CallableDeclaration<MethodDeclaration>
         return hasParentNode()
                 && getParentNode().get() instanceof ClassOrInterfaceDeclaration
                 && ((ClassOrInterfaceDeclaration) getParentNode().get()).isInterface()
-                && Arrays.asList(Keyword.STATIC, Keyword.DEFAULT, Keyword.PRIVATE).stream()
+                && Arrays.asList(Modifier.DefaultKeyword.STATIC, Modifier.DefaultKeyword.DEFAULT, Modifier.DefaultKeyword.PRIVATE).stream()
                         .noneMatch(modifier -> hasModifier(modifier));
     }
 
     public boolean isNative() {
-        return hasModifier(Modifier.Keyword.NATIVE);
+        return hasModifier(Modifier.DefaultKeyword.NATIVE);
     }
 
     public boolean isSynchronized() {
-        return hasModifier(Modifier.Keyword.SYNCHRONIZED);
+        return hasModifier(Modifier.DefaultKeyword.SYNCHRONIZED);
     }
 
     public boolean isDefault() {
-        return hasModifier(Modifier.Keyword.DEFAULT);
+        return hasModifier(DefaultKeyword.DEFAULT);
     }
 
     public MethodDeclaration setNative(boolean set) {
-        return setModifier(Modifier.Keyword.NATIVE, set);
+        return setModifier(Modifier.DefaultKeyword.NATIVE, set);
     }
 
     public MethodDeclaration setSynchronized(boolean set) {
-        return setModifier(Modifier.Keyword.SYNCHRONIZED, set);
+        return setModifier(Modifier.DefaultKeyword.SYNCHRONIZED, set);
     }
 
     public MethodDeclaration setDefault(boolean set) {
-        return setModifier(Modifier.Keyword.DEFAULT, set);
+        return setModifier(Modifier.DefaultKeyword.DEFAULT, set);
     }
 
     @Override

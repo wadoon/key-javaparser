@@ -216,6 +216,10 @@ public class MetaModelGenerator extends AbstractGenerator {
             add(KeyMethodSignature.class);
             add(KeyRangeExpression.class);
             add(KeyTransactionStatement.class);
+            add(JmlDoc.class);
+            add(JmlDocsBodyDeclaration.class);
+            add(JmlDocsTypeDeclaration.class);
+            add(JmlDocsStatements.class);
             // add(KeyActiveCommentStatement.class);
 
             // KeY-Schema

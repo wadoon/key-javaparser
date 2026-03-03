@@ -38,6 +38,8 @@ import com.github.javaparser.printer.lexicalpreservation.changes.*;
 import com.github.javaparser.utils.LineSeparator;
 import java.util.*;
 
+import static com.github.javaparser.ast.Modifier.DefaultKeyword.*;
+
 class LexicalDifferenceCalculator {
 
     /**

@@ -466,7 +466,7 @@ public class CompilationUnit extends Node {
      * @return the newly created class
      */
     public ClassOrInterfaceDeclaration addClass(String name) {
-        return addClass(name, Modifier.Keyword.PUBLIC);
+        return addClass(name, Modifier.DefaultKeyword.PUBLIC);
     }
 
     /**
@@ -476,7 +476,7 @@ public class CompilationUnit extends Node {
      * @param modifiers the modifiers (like Modifier.PUBLIC)
      * @return the newly created class
      */
-    public ClassOrInterfaceDeclaration addClass(String name, Modifier.Keyword... modifiers) {
+    public ClassOrInterfaceDeclaration addClass(String name, Modifier.DefaultKeyword... modifiers) {
         ClassOrInterfaceDeclaration classOrInterfaceDeclaration =
                 new ClassOrInterfaceDeclaration(createModifierList(modifiers), false, name);
         getTypes().add(classOrInterfaceDeclaration);
@@ -490,7 +490,7 @@ public class CompilationUnit extends Node {
      * @return the newly created class
      */
     public ClassOrInterfaceDeclaration addInterface(String name) {
-        return addInterface(name, Modifier.Keyword.PUBLIC);
+        return addInterface(name, Modifier.DefaultKeyword.PUBLIC);
     }
 
     /**
@@ -500,7 +500,7 @@ public class CompilationUnit extends Node {
      * @param modifiers the modifiers (like Modifier.PUBLIC)
      * @return the newly created class
      */
-    public ClassOrInterfaceDeclaration addInterface(String name, Modifier.Keyword... modifiers) {
+    public ClassOrInterfaceDeclaration addInterface(String name, Modifier.DefaultKeyword... modifiers) {
         ClassOrInterfaceDeclaration classOrInterfaceDeclaration =
                 new ClassOrInterfaceDeclaration(createModifierList(modifiers), true, name);
         getTypes().add(classOrInterfaceDeclaration);
@@ -514,7 +514,7 @@ public class CompilationUnit extends Node {
      * @return the newly created class
      */
     public EnumDeclaration addEnum(String name) {
-        return addEnum(name, Modifier.Keyword.PUBLIC);
+        return addEnum(name, Modifier.DefaultKeyword.PUBLIC);
     }
 
     /**
@@ -524,7 +524,7 @@ public class CompilationUnit extends Node {
      * @param modifiers the modifiers (like Modifier.PUBLIC)
      * @return the newly created class
      */
-    public EnumDeclaration addEnum(String name, Modifier.Keyword... modifiers) {
+    public EnumDeclaration addEnum(String name, Modifier.DefaultKeyword... modifiers) {
         EnumDeclaration enumDeclaration = new EnumDeclaration(createModifierList(modifiers), name);
         getTypes().add(enumDeclaration);
         return enumDeclaration;
@@ -537,7 +537,7 @@ public class CompilationUnit extends Node {
      * @return the newly created class
      */
     public AnnotationDeclaration addAnnotationDeclaration(String name) {
-        return addAnnotationDeclaration(name, Modifier.Keyword.PUBLIC);
+        return addAnnotationDeclaration(name, Modifier.DefaultKeyword.PUBLIC);
     }
 
     /**
@@ -547,7 +547,7 @@ public class CompilationUnit extends Node {
      * @param modifiers the modifiers (like Modifier.PUBLIC)
      * @return the newly created class
      */
-    public AnnotationDeclaration addAnnotationDeclaration(String name, Modifier.Keyword... modifiers) {
+    public AnnotationDeclaration addAnnotationDeclaration(String name, Modifier.DefaultKeyword... modifiers) {
         AnnotationDeclaration annotationDeclaration = new AnnotationDeclaration(createModifierList(modifiers), name);
         getTypes().add(annotationDeclaration);
         return annotationDeclaration;

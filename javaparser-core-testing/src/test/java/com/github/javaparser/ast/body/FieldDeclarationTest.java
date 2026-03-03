@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.github.javaparser.StaticJavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.Modifier;
-import com.github.javaparser.ast.Modifier.Keyword;
+import com.github.javaparser.ast.Modifier.DefaultKeyword;
 import com.github.javaparser.ast.NodeList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -71,7 +71,7 @@ class FieldDeclarationTest {
         modifiers = field.getModifiers();
         assertEquals(0, modifiers.size());
 
-        field.setModifiers(Keyword.PRIVATE, Keyword.SYNCHRONIZED);
+        field.setModifiers(DefaultKeyword.PRIVATE, Modifier.DefaultKeyword.SYNCHRONIZED);
         modifiers = field.getModifiers();
         assertTrue(modifiers.contains(Modifier.privateModifier()));
         assertTrue(modifiers.contains(Modifier.synchronizedModifier()));
