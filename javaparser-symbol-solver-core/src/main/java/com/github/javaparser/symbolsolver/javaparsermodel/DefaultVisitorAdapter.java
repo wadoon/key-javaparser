@@ -23,9 +23,10 @@ package com.github.javaparser.symbolsolver.javaparsermodel;
 
 import com.github.javaparser.ast.*;
 import com.github.javaparser.ast.body.*;
-import com.github.javaparser.ast.comments.*;
 import com.github.javaparser.ast.comments.BlockComment;
 import com.github.javaparser.ast.comments.LineComment;
+import com.github.javaparser.ast.comments.MarkdownComment;
+import com.github.javaparser.ast.comments.TraditionalJavadocComment;
 import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.ast.key.*;
 import com.github.javaparser.ast.key.sv.*;
@@ -378,27 +379,35 @@ public class DefaultVisitorAdapter implements GenericVisitor<ResolvedType, Boole
 
     @Override
     public ResolvedType visit(KeyCcatchSV n, Boolean arg) {
-        return null;
+        throw new UnsupportedOperationException(n.getClass().getCanonicalName());
     }
 
     @Override
     public ResolvedType visit(KeyExecutionContextSV n, Boolean arg) {
-        return null;
+        throw new UnsupportedOperationException(n.getClass().getCanonicalName());
     }
 
     @Override
     public ResolvedType visit(JmlDoc n, Boolean arg) {
-        return null;
+        throw new UnsupportedOperationException(n.getClass().getCanonicalName());
+
     }
 
     @Override
     public ResolvedType visit(JmlDocsBodyDeclaration n, Boolean arg) {
-        return null;
+        throw new UnsupportedOperationException(n.getClass().getCanonicalName());
+
     }
 
     @Override
     public ResolvedType visit(JmlDocsTypeDeclaration n, Boolean arg) {
-        return null;
+        throw new UnsupportedOperationException(n.getClass().getCanonicalName());
+
+    }
+
+    @Override
+    public ResolvedType visit(JmlDocsStatements n, Boolean arg) {
+        throw new UnsupportedOperationException(n.getClass().getCanonicalName());
     }
 
     @Override

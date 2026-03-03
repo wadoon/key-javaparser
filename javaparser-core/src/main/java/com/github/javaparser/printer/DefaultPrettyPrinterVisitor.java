@@ -1168,13 +1168,24 @@ public class DefaultPrettyPrinterVisitor implements VoidVisitor<Void> {
     }
 
     @Override
-    public void visit(JmlDoc n, Void arg) {}
+    public void visit(JmlDoc n, Void arg) {
+        printer.print(n.getContent().getText());
+    }
 
     @Override
-    public void visit(JmlDocsBodyDeclaration n, Void arg) {}
+    public void visit(JmlDocsBodyDeclaration n, Void arg) {
+        n.jmlDocs().accept(this, arg);
+    }
 
     @Override
-    public void visit(JmlDocsTypeDeclaration n, Void arg) {}
+    public void visit(JmlDocsTypeDeclaration n, Void arg) {
+        n.jmlDocs().accept(this, arg);
+    }
+
+    @Override
+    public void visit(JmlDocsStatements n, Void arg) {
+        n.jmlDocs().accept(this, arg);
+    }
 
     @Override
     public void visit(final RecordPatternExpr n, final Void arg) {

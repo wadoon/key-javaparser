@@ -240,14 +240,4 @@ public class Modifier extends Node {
     public @NonNull() Keyword keyword() {
         return Objects.requireNonNull(keyword);
     }
-
-    public Modifier setKeyword(final @NonNull() Keyword keyword) {
-        assertNotNull(keyword);
-        if (keyword == this.keyword) {
-            return this;
-        }
-        notifyPropertyChange(ObservableProperty.KEYWORD, this.keyword, keyword);
-        this.keyword = keyword;
-        return this;
-    }
 }
