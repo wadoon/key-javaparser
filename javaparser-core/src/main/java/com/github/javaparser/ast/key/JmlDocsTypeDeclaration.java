@@ -30,7 +30,7 @@ public class JmlDocsTypeDeclaration extends TypeDeclaration<JmlDocsTypeDeclarati
 
     @AllFieldsConstructor
     public JmlDocsTypeDeclaration(NodeList<JmlDoc> jmlDocs) {
-        this.jmlDocs = jmlDocs;
+        this(JmlDocsBodyDeclaration.getRange(jmlDocs), jmlDocs);
     }
 
     @Override
@@ -50,6 +50,7 @@ public class JmlDocsTypeDeclaration extends TypeDeclaration<JmlDocsTypeDeclarati
         return null;
     }
 
+    @Override
     @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifJmlDocsTypeDeclaration(Consumer<JmlDocsTypeDeclaration> action) {
         action.accept(this);
@@ -132,16 +133,19 @@ public class JmlDocsTypeDeclaration extends TypeDeclaration<JmlDocsTypeDeclarati
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public boolean isJmlDocsTypeDeclaration() {
         return true;
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public JmlDocsTypeDeclaration asJmlDocsTypeDeclaration() {
         return this;
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public Optional<JmlDocsTypeDeclaration> toJmlDocsTypeDeclaration() {
         return Optional.of(this);
     }

@@ -720,4 +720,9 @@ public class ObjectIdentityEqualsVisitor implements GenericVisitor<Boolean, Visi
     public Boolean visit(final JmlDocsTypeDeclaration n, final Visitable arg) {
         return n == arg;
     }
+
+    @Override
+    public Boolean visit(final JmlDocsStatements n, final Visitable arg) {
+        return n == arg;
+    }
 }

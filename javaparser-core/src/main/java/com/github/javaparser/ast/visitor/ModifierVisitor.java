@@ -1949,4 +1949,15 @@ public class ModifierVisitor<A> implements GenericVisitor<Visitable, A> {
         n.setComment(comment);
         return n;
     }
+
+    @Override
+    public Visitable visit(final JmlDocsStatements n, final A arg) {
+        NodeList<JmlDoc> jmlDocs = modifyList(n.getJmlDocs(), arg);
+        NodeList<Comment> associatedSpecificationComments = modifyList(n.getAssociatedSpecificationComments(), arg);
+        Comment comment = n.getComment().map(s -> (Comment) s.accept(this, arg)).orElse(null);
+        n.setJmlDocs(jmlDocs);
+        n.setAssociatedSpecificationComments(associatedSpecificationComments);
+        n.setComment(comment);
+        return n;
+    }
 }

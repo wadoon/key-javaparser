@@ -1220,4 +1220,12 @@ public class NoCommentHashCodeVisitor implements GenericVisitor<Integer, Void> {
                         ? n.getAssociatedSpecificationComments().get().accept(this, arg)
                         : 0);
     }
+
+    @Override
+    public Integer visit(final JmlDocsStatements n, final Void arg) {
+        return (n.getJmlDocs().accept(this, arg)) * 31
+                + (n.getAssociatedSpecificationComments().isPresent()
+                        ? n.getAssociatedSpecificationComments().get().accept(this, arg)
+                        : 0);
+    }
 }

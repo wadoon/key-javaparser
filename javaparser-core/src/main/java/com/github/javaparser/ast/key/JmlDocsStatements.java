@@ -1,10 +1,23 @@
 package com.github.javaparser.ast.key;
 
+import static com.github.javaparser.utils.Utils.assertNotNull;
+
+import com.github.javaparser.TokenRange;
 import com.github.javaparser.ast.AllFieldsConstructor;
+import com.github.javaparser.ast.Generated;
+import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
+import com.github.javaparser.ast.observer.ObservableProperty;
 import com.github.javaparser.ast.stmt.Statement;
+import com.github.javaparser.ast.visitor.CloneVisitor;
 import com.github.javaparser.ast.visitor.GenericVisitor;
 import com.github.javaparser.ast.visitor.VoidVisitor;
+import com.github.javaparser.metamodel.JavaParserMetaModel;
+import com.github.javaparser.metamodel.JmlDocsStatementsMetaModel;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Consumer;
+import org.jspecify.annotations.NonNull;
 
 /**
  * @author Alexander Weigl
@@ -15,15 +28,106 @@ public class JmlDocsStatements extends Statement {
     private NodeList<JmlDoc> jmlDocs;
 
     @AllFieldsConstructor
-    public JmlDocsStatements(NodeList<JmlDoc> seq) {
-        this.jmlDocs = seq;
+    public JmlDocsStatements(NodeList<JmlDoc> jmlDocs) {
+        this(JmlDocsBodyDeclaration.getRange(jmlDocs), jmlDocs);
     }
 
     @Override
-    public <R, A> R accept(GenericVisitor<R, A> v, A arg) {
-        return null;
+    @Generated("com.github.javaparser.generator.core.node.AcceptGenerator")
+    public <R, A> R accept(final GenericVisitor<R, A> v, final A arg) {
+        return v.visit(this, arg);
     }
 
     @Override
-    public <A> void accept(VoidVisitor<A> v, A arg) {}
+    @Generated("com.github.javaparser.generator.core.node.AcceptGenerator")
+    public <A> void accept(final VoidVisitor<A> v, final A arg) {
+        v.visit(this, arg);
+    }
+
+    @Override
+    public boolean isJmlDocsStatements() {
+        return true;
+    }
+
+    @Override
+    public JmlDocsStatements asJmlDocsStatements() {
+        return this;
+    }
+
+    @Override
+    public Optional<JmlDocsStatements> toJmlDocsStatements() {
+        return Optional.of(this);
+    }
+
+    public void ifJmlDocsStatements(Consumer<JmlDocsStatements> action) {
+        action.accept(this);
+    }
+
+    public NodeList<JmlDoc> getJmlDocs() {
+        return jmlDocs;
+    }
+
+    @com.github.javaparser.ast.key.IgnoreLexPrinting()
+    public @NonNull() NodeList<JmlDoc> jmlDocs() {
+        return Objects.requireNonNull(jmlDocs);
+    }
+
+    public JmlDocsStatements setJmlDocs(final @NonNull() NodeList<JmlDoc> jmlDocs) {
+        assertNotNull(jmlDocs);
+        if (jmlDocs == this.jmlDocs) {
+            return this;
+        }
+        notifyPropertyChange(ObservableProperty.JML_DOCS, this.jmlDocs, jmlDocs);
+        if (this.jmlDocs != null) this.jmlDocs.setParentNode(null);
+        this.jmlDocs = jmlDocs;
+        setAsParentNodeOf(jmlDocs);
+        return this;
+    }
+
+    @Override
+    public boolean remove(Node node) {
+        if (node == null) {
+            return false;
+        }
+        for (int i = 0; i < jmlDocs.size(); i++) {
+            if (jmlDocs.get(i) == node) {
+                jmlDocs.remove(i);
+                return true;
+            }
+        }
+        return super.remove(node);
+    }
+
+    @Override
+    public boolean replace(Node node, Node replacementNode) {
+        if (node == null) {
+            return false;
+        }
+        for (int i = 0; i < jmlDocs.size(); i++) {
+            if (jmlDocs.get(i) == node) {
+                jmlDocs.set(i, (JmlDoc) replacementNode);
+                return true;
+            }
+        }
+        return super.replace(node, replacementNode);
+    }
+
+    @Override
+    public JmlDocsStatements clone() {
+        return (JmlDocsStatements) accept(new CloneVisitor(), null);
+    }
+
+    @Override
+    public JmlDocsStatementsMetaModel getMetaModel() {
+        return JavaParserMetaModel.jmlDocsStatementsMetaModel;
+    }
+
+    /**
+     * This constructor is used by the parser and is considered private.
+     */
+    public JmlDocsStatements(TokenRange tokenRange, NodeList<JmlDoc> jmlDocs) {
+        super(tokenRange);
+        setJmlDocs(jmlDocs);
+        customInitialization();
+    }
 }

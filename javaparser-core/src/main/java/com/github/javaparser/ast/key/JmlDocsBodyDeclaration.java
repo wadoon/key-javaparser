@@ -33,14 +33,15 @@ public class JmlDocsBodyDeclaration extends BodyDeclaration<JmlDocsTypeDeclarati
     }
 
     public static TokenRange getRange(NodeList<JmlDoc> jmlDocs) {
-        if(jmlDocs == null) return null;
-        if(jmlDocs.isEmpty()) return null;
-
+        if (jmlDocs == null) return null;
+        if (jmlDocs.isEmpty()) return null;
         var first = jmlDocs.getFirst();
         var last = jmlDocs.getLast();
         try {
-            return new TokenRange(first.getTokenRange().get().getBegin(), last.getTokenRange().get().getEnd());
-        }catch (Exception e) {
+            return new TokenRange(
+                    first.getTokenRange().get().getBegin(),
+                    last.getTokenRange().get().getEnd());
+        } catch (Exception e) {
             return null;
         }
     }
@@ -63,6 +64,7 @@ public class JmlDocsBodyDeclaration extends BodyDeclaration<JmlDocsTypeDeclarati
         return true;
     }
 
+    @Override
     @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifJmlDocsBodyDeclaration(Consumer<JmlDocsBodyDeclaration> action) {
         action.accept(this);
@@ -145,11 +147,13 @@ public class JmlDocsBodyDeclaration extends BodyDeclaration<JmlDocsTypeDeclarati
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public JmlDocsBodyDeclaration asJmlDocsBodyDeclaration() {
         return this;
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public Optional<JmlDocsBodyDeclaration> toJmlDocsBodyDeclaration() {
         return Optional.of(this);
     }

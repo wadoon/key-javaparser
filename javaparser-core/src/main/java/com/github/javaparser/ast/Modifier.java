@@ -152,7 +152,6 @@ public class Modifier extends Node {
         JML_OT_REP("rep"),
         JML_OT_READ_ONLY("read_only");
 
-
         private final String codeRepresentation;
 
         DefaultKeyword(String codeRepresentation) {
@@ -240,5 +239,15 @@ public class Modifier extends Node {
     @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public @NonNull() Keyword keyword() {
         return Objects.requireNonNull(keyword);
+    }
+
+    public Modifier setKeyword(final @NonNull() Keyword keyword) {
+        assertNotNull(keyword);
+        if (keyword == this.keyword) {
+            return this;
+        }
+        notifyPropertyChange(ObservableProperty.KEYWORD, this.keyword, keyword);
+        this.keyword = keyword;
+        return this;
     }
 }

@@ -1338,4 +1338,12 @@ public class NoCommentEqualsVisitor implements GenericVisitor<Boolean, Visitable
         if (!nodesEquals(n.getAssociatedSpecificationComments(), n2.getAssociatedSpecificationComments())) return false;
         return true;
     }
+
+    @Override
+    public Boolean visit(final JmlDocsStatements n, final Visitable arg) {
+        final JmlDocsStatements n2 = (JmlDocsStatements) arg;
+        if (!nodesEquals(n.getJmlDocs(), n2.getJmlDocs())) return false;
+        if (!nodesEquals(n.getAssociatedSpecificationComments(), n2.getAssociatedSpecificationComments())) return false;
+        return true;
+    }
 }

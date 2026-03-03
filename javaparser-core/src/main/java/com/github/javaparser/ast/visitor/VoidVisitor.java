@@ -306,4 +306,6 @@ public interface VoidVisitor<A> {
     void visit(JmlDocsBodyDeclaration n, A arg);
 
     void visit(JmlDocsTypeDeclaration n, A arg);
+
+    void visit(JmlDocsStatements n, A arg);
 }

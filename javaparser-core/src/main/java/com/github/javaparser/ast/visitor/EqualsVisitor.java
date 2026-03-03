@@ -1523,4 +1523,13 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Visitable> {
         if (!nodeEquals(n.getComment(), n2.getComment())) return false;
         return true;
     }
+
+    @Override
+    public Boolean visit(final JmlDocsStatements n, final Visitable arg) {
+        final JmlDocsStatements n2 = (JmlDocsStatements) arg;
+        if (!nodesEquals(n.getJmlDocs(), n2.getJmlDocs())) return false;
+        if (!nodesEquals(n.getAssociatedSpecificationComments(), n2.getAssociatedSpecificationComments())) return false;
+        if (!nodeEquals(n.getComment(), n2.getComment())) return false;
+        return true;
+    }
 }

@@ -51,15 +51,18 @@ public class JmlDoc extends Node {
         v.visit(this, arg);
     }
 
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public JavaToken getContent() {
         return content;
     }
 
     @com.github.javaparser.ast.key.IgnoreLexPrinting()
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public @NonNull() JavaToken content() {
         return Objects.requireNonNull(content);
     }
 
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public JmlDoc setContent(final @NonNull() JavaToken content) {
         assertNotNull(content);
         if (content == this.content) {
@@ -71,11 +74,13 @@ public class JmlDoc extends Node {
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.CloneGenerator")
     public JmlDoc clone() {
         return (JmlDoc) accept(new CloneVisitor(), null);
     }
 
     @Override
+    @Generated("com.github.javaparser.generator.core.node.GetMetaModelGenerator")
     public JmlDocMetaModel getMetaModel() {
         return JavaParserMetaModel.jmlDocMetaModel;
     }

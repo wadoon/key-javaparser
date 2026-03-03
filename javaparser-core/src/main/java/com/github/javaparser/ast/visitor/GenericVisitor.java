@@ -313,4 +313,6 @@ public interface GenericVisitor<R, A> {
     R visit(JmlDocsBodyDeclaration n, A arg);
 
     R visit(JmlDocsTypeDeclaration n, A arg);
+
+    R visit(JmlDocsStatements n, A arg);
 }
