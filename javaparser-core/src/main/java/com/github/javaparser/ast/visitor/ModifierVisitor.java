@@ -1907,4 +1907,46 @@ public class ModifierVisitor<A> implements GenericVisitor<Visitable, A> {
         n.setComment(comment);
         return n;
     }
+
+    @Override
+    public Visitable visit(final JmlDoc n, final A arg) {
+        NodeList<Comment> associatedSpecificationComments = modifyList(n.getAssociatedSpecificationComments(), arg);
+        Comment comment = n.getComment().map(s -> (Comment) s.accept(this, arg)).orElse(null);
+        n.setAssociatedSpecificationComments(associatedSpecificationComments);
+        n.setComment(comment);
+        return n;
+    }
+
+    @Override
+    public Visitable visit(final JmlDocsBodyDeclaration n, final A arg) {
+        NodeList<AnnotationExpr> annotations = modifyList(n.getAnnotations(), arg);
+        NodeList<JmlDoc> jmlDocs = modifyList(n.getJmlDocs(), arg);
+        NodeList<Comment> associatedSpecificationComments = modifyList(n.getAssociatedSpecificationComments(), arg);
+        Comment comment = n.getComment().map(s -> (Comment) s.accept(this, arg)).orElse(null);
+        n.setAnnotations(annotations);
+        n.setJmlDocs(jmlDocs);
+        n.setAssociatedSpecificationComments(associatedSpecificationComments);
+        n.setComment(comment);
+        return n;
+    }
+
+    @Override
+    public Visitable visit(final JmlDocsTypeDeclaration n, final A arg) {
+        NodeList<AnnotationExpr> annotations = modifyList(n.getAnnotations(), arg);
+        NodeList<Modifier> modifiers = modifyList(n.getModifiers(), arg);
+        NodeList<JmlDoc> jmlDocs = modifyList(n.getJmlDocs(), arg);
+        NodeList<BodyDeclaration<?>> members = modifyList(n.getMembers(), arg);
+        SimpleName name = (SimpleName) n.getName().accept(this, arg);
+        NodeList<Comment> associatedSpecificationComments = modifyList(n.getAssociatedSpecificationComments(), arg);
+        Comment comment = n.getComment().map(s -> (Comment) s.accept(this, arg)).orElse(null);
+        if (name == null) return null;
+        n.setAnnotations(annotations);
+        n.setModifiers(modifiers);
+        n.setJmlDocs(jmlDocs);
+        n.setMembers(members);
+        n.setName(name);
+        n.setAssociatedSpecificationComments(associatedSpecificationComments);
+        n.setComment(comment);
+        return n;
+    }
 }

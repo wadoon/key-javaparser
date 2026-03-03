@@ -25,6 +25,7 @@ import static com.github.javaparser.ast.NodeList.toNodeList;
 import com.github.javaparser.ast.AccessSpecifier;
 import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.Modifier.DefaultKeyword;
+import com.github.javaparser.ast.Modifier.Keyword;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
 import java.util.Arrays;
@@ -49,9 +50,9 @@ public interface NodeWithModifiers<N extends Node> {
     N setModifiers(NodeList<Modifier> modifiers);
 
     @SuppressWarnings("unchecked")
-    default N addModifier(DefaultKeyword... newModifiers) {
+    default N addModifier(Keyword... newModifiers) {
         NodeList<Modifier> existingModifiers = new NodeList<>(getModifiers());
-        for (DefaultKeyword newModifier : newModifiers) {
+        for (Keyword newModifier : newModifiers) {
             boolean alreadyPresent = existingModifiers.stream().anyMatch(m -> m.getKeyword() == newModifier);
             if (!alreadyPresent) {
                 existingModifiers.add(new Modifier(newModifier));

@@ -7,11 +7,11 @@ import com.github.javaparser.ast.visitor.GenericVisitor;
 import com.github.javaparser.ast.visitor.VoidVisitor;
 
 /**
- *
  * @author Alexander Weigl
  * @version 1 (3/3/26)
  */
 public class JmlDocsStatements extends Statement {
+
     private NodeList<JmlDoc> jmlDocs;
 
     @AllFieldsConstructor
@@ -25,7 +25,5 @@ public class JmlDocsStatements extends Statement {
     }
 
     @Override
-    public <A> void accept(VoidVisitor<A> v, A arg) {
-
-    }
+    public <A> void accept(VoidVisitor<A> v, A arg) {}
 }

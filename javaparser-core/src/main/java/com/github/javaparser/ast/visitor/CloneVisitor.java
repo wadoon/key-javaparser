@@ -1988,4 +1988,47 @@ public class CloneVisitor implements GenericVisitor<Visitable, Object> {
         copyData(n, r);
         return r;
     }
+
+    @Override
+    public Visitable visit(final JmlDoc n, final Object arg) {
+        NodeList<Comment> associatedSpecificationComments =
+                cloneList(n.getAssociatedSpecificationComments().orElse(null), arg);
+        Comment comment = cloneNode(n.getComment(), arg);
+        JmlDoc r = new JmlDoc(n.getTokenRange().orElse(null), n.getContent());
+        r.setComment(comment);
+        n.getOrphanComments().stream().map(Comment::clone).forEach(r::addOrphanComment);
+        copyData(n, r);
+        return r;
+    }
+
+    @Override
+    public Visitable visit(final JmlDocsBodyDeclaration n, final Object arg) {
+        NodeList<JmlDoc> jmlDocs = cloneList(n.getJmlDocs(), arg);
+        NodeList<AnnotationExpr> annotations = cloneList(n.getAnnotations(), arg);
+        NodeList<Comment> associatedSpecificationComments =
+                cloneList(n.getAssociatedSpecificationComments().orElse(null), arg);
+        Comment comment = cloneNode(n.getComment(), arg);
+        JmlDocsBodyDeclaration r = new JmlDocsBodyDeclaration(n.getTokenRange().orElse(null), jmlDocs);
+        r.setComment(comment);
+        n.getOrphanComments().stream().map(Comment::clone).forEach(r::addOrphanComment);
+        copyData(n, r);
+        return r;
+    }
+
+    @Override
+    public Visitable visit(final JmlDocsTypeDeclaration n, final Object arg) {
+        NodeList<JmlDoc> jmlDocs = cloneList(n.getJmlDocs(), arg);
+        NodeList<BodyDeclaration<?>> members = cloneList(n.getMembers(), arg);
+        NodeList<Modifier> modifiers = cloneList(n.getModifiers(), arg);
+        SimpleName name = cloneNode(n.getName(), arg);
+        NodeList<AnnotationExpr> annotations = cloneList(n.getAnnotations(), arg);
+        NodeList<Comment> associatedSpecificationComments =
+                cloneList(n.getAssociatedSpecificationComments().orElse(null), arg);
+        Comment comment = cloneNode(n.getComment(), arg);
+        JmlDocsTypeDeclaration r = new JmlDocsTypeDeclaration(n.getTokenRange().orElse(null), jmlDocs);
+        r.setComment(comment);
+        n.getOrphanComments().stream().map(Comment::clone).forEach(r::addOrphanComment);
+        copyData(n, r);
+        return r;
+    }
 }

@@ -1,37 +1,82 @@
 package com.github.javaparser.ast.key;
 
+import static com.github.javaparser.utils.Utils.assertNotNull;
+
 import com.github.javaparser.JavaToken;
 import com.github.javaparser.TokenRange;
 import com.github.javaparser.ast.AllFieldsConstructor;
+import com.github.javaparser.ast.Generated;
 import com.github.javaparser.ast.Node;
-import com.github.javaparser.ast.comments.Comment;
+import com.github.javaparser.ast.observer.ObservableProperty;
+import com.github.javaparser.ast.visitor.CloneVisitor;
 import com.github.javaparser.ast.visitor.GenericVisitor;
 import com.github.javaparser.ast.visitor.VoidVisitor;
+import com.github.javaparser.metamodel.JavaParserMetaModel;
+import com.github.javaparser.metamodel.JmlDocMetaModel;
+import java.util.Objects;
+import org.jspecify.annotations.NonNull;
 
 /**
- *
  * @author Alexander Weigl
  * @version 1 (3/3/26)
  */
 public class JmlDoc extends Node {
-    private Comment comment;
+
+    private JavaToken content;
 
     @AllFieldsConstructor
-    public JmlDoc(JavaToken comment) {
-        this(new TokenRange(comment, comment), comment);
+    public JmlDoc(JavaToken content) {
+        this(new TokenRange(content, content), content);
     }
 
-    public JmlDoc(TokenRange tokenRange, JavaToken comment) {
+    /**
+     * This constructor is used by the parser and is considered private.
+     */
+    @Generated("com.github.javaparser.generator.core.node.MainConstructorGenerator")
+    public JmlDoc(TokenRange tokenRange, JavaToken content) {
         super(tokenRange);
+        setContent(content);
+        customInitialization();
     }
 
     @Override
-    public <R, A> R accept(GenericVisitor<R, A> v, A arg) {
-        return null;
+    @Generated("com.github.javaparser.generator.core.node.AcceptGenerator")
+    public <R, A> R accept(final GenericVisitor<R, A> v, final A arg) {
+        return v.visit(this, arg);
     }
 
     @Override
-    public <A> void accept(VoidVisitor<A> v, A arg) {
+    @Generated("com.github.javaparser.generator.core.node.AcceptGenerator")
+    public <A> void accept(final VoidVisitor<A> v, final A arg) {
+        v.visit(this, arg);
+    }
 
+    public JavaToken getContent() {
+        return content;
+    }
+
+    @com.github.javaparser.ast.key.IgnoreLexPrinting()
+    public @NonNull() JavaToken content() {
+        return Objects.requireNonNull(content);
+    }
+
+    public JmlDoc setContent(final @NonNull() JavaToken content) {
+        assertNotNull(content);
+        if (content == this.content) {
+            return this;
+        }
+        notifyPropertyChange(ObservableProperty.CONTENT, this.content, content);
+        this.content = content;
+        return this;
+    }
+
+    @Override
+    public JmlDoc clone() {
+        return (JmlDoc) accept(new CloneVisitor(), null);
+    }
+
+    @Override
+    public JmlDocMetaModel getMetaModel() {
+        return JavaParserMetaModel.jmlDocMetaModel;
     }
 }

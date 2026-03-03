@@ -37,7 +37,7 @@ public class Issue3761Test extends AbstractLexicalPreservingTest {
 
         FieldDeclaration field = cu.findAll(FieldDeclaration.class).get(0);
 
-        List<Modifier.DefaultKeyword> kws =
+        List<Modifier.Keyword> kws =
                 field.getModifiers().stream().map(Modifier::getKeyword).collect(Collectors.toList());
         kws.add(0, Modifier.DefaultKeyword.PROTECTED);
         field.setModifiers(kws.toArray(new Modifier.DefaultKeyword[] {}));

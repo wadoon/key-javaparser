@@ -307,4 +307,10 @@ public interface GenericVisitor<R, A> {
     R visit(KeyCcatchSV n, A arg);
 
     R visit(KeyExecutionContextSV n, A arg);
+
+    R visit(JmlDoc n, A arg);
+
+    R visit(JmlDocsBodyDeclaration n, A arg);
+
+    R visit(JmlDocsTypeDeclaration n, A arg);
 }

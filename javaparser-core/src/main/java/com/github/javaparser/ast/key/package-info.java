@@ -1,4 +1,3 @@
-
 /// AST nodes for the [KeY Theorem Prover](https://key-project.org).
 ///
 ///

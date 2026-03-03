@@ -45,9 +45,9 @@ public class ModifierValidator extends VisitorValidator {
     private final Modifier.DefaultKeyword[] interfaceWithNothingSpecial =
             new Modifier.DefaultKeyword[] {PUBLIC, PROTECTED, ABSTRACT, FINAL, SYNCHRONIZED, NATIVE, STRICTFP};
 
-    private final Modifier.DefaultKeyword[] interfaceWithStaticAndDefault =
-            new Modifier.DefaultKeyword[] {PUBLIC, PROTECTED, ABSTRACT, STATIC, FINAL, SYNCHRONIZED, NATIVE, STRICTFP, DEFAULT
-            };
+    private final Modifier.DefaultKeyword[] interfaceWithStaticAndDefault = new Modifier.DefaultKeyword[] {
+        PUBLIC, PROTECTED, ABSTRACT, STATIC, FINAL, SYNCHRONIZED, NATIVE, STRICTFP, DEFAULT
+    };
 
     private final Modifier.DefaultKeyword[] interfaceWithStaticAndDefaultAndPrivate = new Modifier.DefaultKeyword[] {
         PUBLIC, PROTECTED, PRIVATE, ABSTRACT, STATIC, FINAL, SYNCHRONIZED, NATIVE, STRICTFP, DEFAULT
@@ -126,7 +126,7 @@ public class ModifierValidator extends VisitorValidator {
 
     @Override
     public void visit(FieldDeclaration n, ProblemReporter reporter) {
-        validateModifiers(n, reporter, PUBLIC, PROTECTED, PRIVATE, STATIC, FINAL, TRANSIENT, VOLATILE, GHOST, MODEL);
+        validateModifiers(n, reporter, PUBLIC, PROTECTED, PRIVATE, STATIC, FINAL, TRANSIENT, VOLATILE);
         super.visit(n, reporter);
     }
 
@@ -193,7 +193,7 @@ public class ModifierValidator extends VisitorValidator {
 
     @Override
     public void visit(VariableDeclarationExpr n, ProblemReporter reporter) {
-        validateModifiers(n, reporter, FINAL, GHOST, MODEL);
+        validateModifiers(n, reporter, FINAL);
         super.visit(n, reporter);
     }
 
@@ -219,7 +219,8 @@ public class ModifierValidator extends VisitorValidator {
         }
     }
 
-    private Modifier.DefaultKeyword[] removeModifierFromArray(Modifier.DefaultKeyword m, Modifier.DefaultKeyword[] allowedModifiers) {
+    private Modifier.DefaultKeyword[] removeModifierFromArray(
+            Modifier.DefaultKeyword m, Modifier.DefaultKeyword[] allowedModifiers) {
         final List<Modifier.DefaultKeyword> newModifiers = new ArrayList<>(asList(allowedModifiers));
         newModifiers.remove(m);
         allowedModifiers = newModifiers.toArray(new Modifier.DefaultKeyword[0]);

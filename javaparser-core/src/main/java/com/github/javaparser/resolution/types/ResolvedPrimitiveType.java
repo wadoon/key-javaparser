@@ -148,7 +148,7 @@ public enum ResolvedPrimitiveType implements ResolvedType {
                 }
             }
             // Hack for KeY: Allow to implement behavior for \bigint & co.
-            if(other.asReferenceType() instanceof AssignableToPrimitive atp) {
+            if (other.asReferenceType() instanceof AssignableToPrimitive atp) {
                 return atp.isAssignableToPrimitive(this);
             }
             return false;

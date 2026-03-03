@@ -300,4 +300,10 @@ public interface VoidVisitor<A> {
     void visit(KeyCcatchSV n, A arg);
 
     void visit(KeyExecutionContextSV n, A arg);
+
+    void visit(JmlDoc n, A arg);
+
+    void visit(JmlDocsBodyDeclaration n, A arg);
+
+    void visit(JmlDocsTypeDeclaration n, A arg);
 }

@@ -95,8 +95,8 @@ public class Modifier extends Node {
         return new Modifier(DefaultKeyword.NON_SEALED);
     }
 
-
     public interface Keyword {
+
         String name();
 
         String asString();
@@ -105,7 +105,7 @@ public class Modifier extends Node {
     /**
      * The Java modifier keywords.
      */
-    public enum DefaultKeyword implements Keyword  {
+    public enum DefaultKeyword implements Keyword {
         DEFAULT("default"),
         PUBLIC("public"),
         PROTECTED("protected"),
@@ -122,10 +122,36 @@ public class Modifier extends Node {
         SEALED("sealed"),
         NON_SEALED("non-sealed"),
         // KEY
-        GHOST("ghost"),
-        MODEL("model"),
-        TWO_STATE("two_state"),
-        NO_STATE("no_state");
+        JML_PACKAGE("package"),
+        JML_PURE("pure"),
+        JML_STRICTLY_PURE("strictly_pure"),
+        JML_HELPER("helper"),
+        JML_INSTANCE("instance"),
+        JML_NULLABLE_BY_DEFAULT("nullable_by_default"),
+        JML_NON_NULL("non_null"),
+        JML_NULLABLE("nullable"),
+        JML_GHOST("ghost"),
+        JML_MODEL("model"),
+        JML_SPEC_PUBLIC("spec_public"),
+        JML_SPEC_PACKAGE("spec_package"),
+        JML_SPEC_PROTECTED("spec_protected"),
+        JML_SPEC_PRIVATE("spec_private"),
+        JML_NO_STATE("no_state"),
+        JML_TWO_STATE("two_state"),
+        JML_NON_NULL_BY_DEFAULT("non_null_by_default"),
+        JML_NON_NULL_ELEMENTS("nonnullelements"),
+        JML_UNPARSABLE_MODIFIERS("<unparsable>"),
+        JML_CODE_BIGINT_MATH("code_bigint_math"),
+        JML_CODE_JAVA_MATH("code_java_math"),
+        JML_CODE_SAFE_MATH("code_safe_math"),
+        JML_SPEC_BIGINT_MATH("spec_bigint_math"),
+        JML_SPEC_JAVA_MATH("spec_java_math"),
+        JML_SPEC_SAFE_MATH("spec_safe_math"),
+        JML_CODE("code"),
+        JML_OT_PEER("peer"),
+        JML_OT_REP("rep"),
+        JML_OT_READ_ONLY("read_only");
+
 
         private final String codeRepresentation;
 
@@ -212,7 +238,7 @@ public class Modifier extends Node {
 
     @com.github.javaparser.ast.key.IgnoreLexPrinting()
     @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
-    public Modifier.@NonNull() Keyword keyword() {
+    public @NonNull() Keyword keyword() {
         return Objects.requireNonNull(keyword);
     }
 }

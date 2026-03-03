@@ -374,7 +374,11 @@ public class MethodDeclaration extends CallableDeclaration<MethodDeclaration>
         return hasParentNode()
                 && getParentNode().get() instanceof ClassOrInterfaceDeclaration
                 && ((ClassOrInterfaceDeclaration) getParentNode().get()).isInterface()
-                && Arrays.asList(Modifier.DefaultKeyword.STATIC, Modifier.DefaultKeyword.DEFAULT, Modifier.DefaultKeyword.PRIVATE).stream()
+                && Arrays.asList(
+                                Modifier.DefaultKeyword.STATIC,
+                                Modifier.DefaultKeyword.DEFAULT,
+                                Modifier.DefaultKeyword.PRIVATE)
+                        .stream()
                         .noneMatch(modifier -> hasModifier(modifier));
     }
 

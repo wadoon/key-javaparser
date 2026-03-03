@@ -1470,4 +1470,39 @@ public class HashCodeVisitor implements GenericVisitor<Integer, Void> {
                         * 31
                 + (n.getComment().isPresent() ? n.getComment().get().accept(this, arg) : 0);
     }
+
+    @Override
+    public Integer visit(final JmlDoc n, final Void arg) {
+        return (n.getContent().hashCode()) * 31
+                + (n.getAssociatedSpecificationComments().isPresent()
+                                ? n.getAssociatedSpecificationComments().get().accept(this, arg)
+                                : 0)
+                        * 31
+                + (n.getComment().isPresent() ? n.getComment().get().accept(this, arg) : 0);
+    }
+
+    @Override
+    public Integer visit(final JmlDocsBodyDeclaration n, final Void arg) {
+        return (n.getJmlDocs().accept(this, arg)) * 31
+                + (n.getAnnotations().accept(this, arg)) * 31
+                + (n.getAssociatedSpecificationComments().isPresent()
+                                ? n.getAssociatedSpecificationComments().get().accept(this, arg)
+                                : 0)
+                        * 31
+                + (n.getComment().isPresent() ? n.getComment().get().accept(this, arg) : 0);
+    }
+
+    @Override
+    public Integer visit(final JmlDocsTypeDeclaration n, final Void arg) {
+        return (n.getJmlDocs().accept(this, arg)) * 31
+                + (n.getMembers().accept(this, arg)) * 31
+                + (n.getModifiers().accept(this, arg)) * 31
+                + (n.getName().accept(this, arg)) * 31
+                + (n.getAnnotations().accept(this, arg)) * 31
+                + (n.getAssociatedSpecificationComments().isPresent()
+                                ? n.getAssociatedSpecificationComments().get().accept(this, arg)
+                                : 0)
+                        * 31
+                + (n.getComment().isPresent() ? n.getComment().get().accept(this, arg) : 0);
+    }
 }

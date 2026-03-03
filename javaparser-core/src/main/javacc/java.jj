@@ -542,10 +542,6 @@ TOKEN :
 | <STATIC_EVALUATE: "#static-evaluate" >
 | <CREATE_OBJECT: "#create-object" >
 | <LENGTHREF: "#length-reference" >
-| <GHOST: "ghost">
-| <MODEL: "model">
-| <TWO_STATE: "two_state">
-| <NO_STATE: "no_state">
 | <RESULTARROW: "result->"> // $result =
 }
 
@@ -1517,14 +1513,6 @@ ModifierHolder Modifiers():
             "sealed" { add(modifiers, new Modifier(tokenRange(), Modifier.DefaultKeyword.SEALED));  begin = orIfInvalid(begin, token()); }
          |
             "non-sealed" { add(modifiers, new Modifier(tokenRange(), Modifier.DefaultKeyword.NON_SEALED));  begin = orIfInvalid(begin, token()); }
-         |
-            "ghost"   { add(modifiers, new Modifier(tokenRange(), Modifier.DefaultKeyword.GHOST));  begin = orIfInvalid(begin, token()); }
-         |
-            "model"   { add(modifiers, new Modifier(tokenRange(), Modifier.DefaultKeyword.MODEL));  begin = orIfInvalid(begin, token()); }
-         |
-            "no_state"   { add(modifiers, new Modifier(tokenRange(), Modifier.DefaultKeyword.NO_STATE));  begin = orIfInvalid(begin, token()); }
-         |
-            "two_state"   { add(modifiers, new Modifier(tokenRange(), Modifier.DefaultKeyword.TWO_STATE));  begin = orIfInvalid(begin, token()); }
          |
              ann = Annotation() { annotations = add(annotations, ann); begin = orIfInvalid(begin, ann); }
         )
@@ -3237,7 +3225,7 @@ String Identifier():
         // Make sure older Java versions parse
         <ENUM> | <STRICTFP> | <YIELD> | <RECORD> | <PERMITS> | <SEALED> | <WHEN> | "_" | <ASSERT> |
         // overwritten by Key/SV but still valid in Java
-        "model" | "ghost" | "two_state" | "no_state" | "source" | "merge_point" | "exec" | "ccatch" | "ccat" |
+        "source" | "merge_point" | "exec" | "ccatch" | "ccat" |
         <SVIDENTIFIER> | <KEYIDENTIFIER> | <JMLIDENTIFIER>
     ) { ret = token().getText(); setTokenKind(IDENTIFIER);}
     { return ret; }

@@ -29,6 +29,8 @@ import com.github.javaparser.ast.Generated;
 import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.NodeList;
 import com.github.javaparser.ast.expr.AnnotationExpr;
+import com.github.javaparser.ast.key.JmlDocsBodyDeclaration;
+import com.github.javaparser.ast.key.JmlDocsTypeDeclaration;
 import com.github.javaparser.ast.nodeTypes.NodeWithAnnotations;
 import com.github.javaparser.ast.observer.ObservableProperty;
 import com.github.javaparser.ast.visitor.CloneVisitor;
@@ -391,4 +393,37 @@ public abstract class BodyDeclaration<T extends BodyDeclaration<?>> extends Node
     public @NonNull() NodeList<AnnotationExpr> annotations() {
         return Objects.requireNonNull(annotations);
     }
+
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
+    public boolean isJmlDocsBodyDeclaration() {
+        return false;
+    }
+
+    public JmlDocsBodyDeclaration asJmlDocsBodyDeclaration() {
+        throw new IllegalStateException(f(
+                "%s is not JmlDocsBodyDeclaration, it is %s",
+                this, this.getClass().getSimpleName()));
+    }
+
+    public Optional<JmlDocsBodyDeclaration> toJmlDocsBodyDeclaration() {
+        return Optional.empty();
+    }
+
+    public void ifJmlDocsBodyDeclaration(Consumer<JmlDocsBodyDeclaration> action) {}
+
+    public boolean isJmlDocsTypeDeclaration() {
+        return false;
+    }
+
+    public JmlDocsTypeDeclaration asJmlDocsTypeDeclaration() {
+        throw new IllegalStateException(f(
+                "%s is not JmlDocsTypeDeclaration, it is %s",
+                this, this.getClass().getSimpleName()));
+    }
+
+    public Optional<JmlDocsTypeDeclaration> toJmlDocsTypeDeclaration() {
+        return Optional.empty();
+    }
+
+    public void ifJmlDocsTypeDeclaration(Consumer<JmlDocsTypeDeclaration> action) {}
 }

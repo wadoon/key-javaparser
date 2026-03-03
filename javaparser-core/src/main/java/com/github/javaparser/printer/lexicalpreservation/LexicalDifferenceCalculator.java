@@ -20,6 +20,8 @@
  */
 package com.github.javaparser.printer.lexicalpreservation;
 
+import static com.github.javaparser.ast.Modifier.DefaultKeyword.*;
+
 import com.github.javaparser.GeneratedJavaParserConstants;
 import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.Node;
@@ -37,8 +39,6 @@ import com.github.javaparser.printer.concretesyntaxmodel.*;
 import com.github.javaparser.printer.lexicalpreservation.changes.*;
 import com.github.javaparser.utils.LineSeparator;
 import java.util.*;
-
-import static com.github.javaparser.ast.Modifier.DefaultKeyword.*;
 
 class LexicalDifferenceCalculator {
 

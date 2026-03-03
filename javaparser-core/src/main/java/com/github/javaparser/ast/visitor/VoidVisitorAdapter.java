@@ -1092,4 +1092,29 @@ public abstract class VoidVisitorAdapter<A> implements VoidVisitor<A> {
         n.getAssociatedSpecificationComments().ifPresent(l -> l.forEach(v -> v.accept(this, arg)));
         n.getComment().ifPresent(l -> l.accept(this, arg));
     }
+
+    @Override
+    public void visit(final JmlDoc n, final A arg) {
+        n.getAssociatedSpecificationComments().ifPresent(l -> l.forEach(v -> v.accept(this, arg)));
+        n.getComment().ifPresent(l -> l.accept(this, arg));
+    }
+
+    @Override
+    public void visit(final JmlDocsBodyDeclaration n, final A arg) {
+        n.getJmlDocs().forEach(p -> p.accept(this, arg));
+        n.getAnnotations().forEach(p -> p.accept(this, arg));
+        n.getAssociatedSpecificationComments().ifPresent(l -> l.forEach(v -> v.accept(this, arg)));
+        n.getComment().ifPresent(l -> l.accept(this, arg));
+    }
+
+    @Override
+    public void visit(final JmlDocsTypeDeclaration n, final A arg) {
+        n.getJmlDocs().forEach(p -> p.accept(this, arg));
+        n.getMembers().forEach(p -> p.accept(this, arg));
+        n.getModifiers().forEach(p -> p.accept(this, arg));
+        n.getName().accept(this, arg);
+        n.getAnnotations().forEach(p -> p.accept(this, arg));
+        n.getAssociatedSpecificationComments().ifPresent(l -> l.forEach(v -> v.accept(this, arg)));
+        n.getComment().ifPresent(l -> l.accept(this, arg));
+    }
 }

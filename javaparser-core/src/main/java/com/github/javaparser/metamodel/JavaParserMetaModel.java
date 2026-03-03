@@ -21,8 +21,6 @@
 package com.github.javaparser.metamodel;
 
 import com.github.javaparser.ast.Generated;
-import com.github.javaparser.ast.Modifier;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -576,6 +574,13 @@ public final class JavaParserMetaModel {
         keyTransactionStatementMetaModel
                 .getConstructorParameters()
                 .add(keyTransactionStatementMetaModel.typePropertyMetaModel);
+        jmlDocMetaModel.getConstructorParameters().add(jmlDocMetaModel.contentPropertyMetaModel);
+        jmlDocsBodyDeclarationMetaModel
+                .getConstructorParameters()
+                .add(jmlDocsBodyDeclarationMetaModel.jmlDocsPropertyMetaModel);
+        jmlDocsTypeDeclarationMetaModel
+                .getConstructorParameters()
+                .add(jmlDocsTypeDeclarationMetaModel.jmlDocsPropertyMetaModel);
         keyContextStatementBlockMetaModel
                 .getConstructorParameters()
                 .add(keyContextStatementBlockMetaModel.statementsPropertyMetaModel);
@@ -683,6 +688,9 @@ public final class JavaParserMetaModel {
         nodeMetaModels.add(integerLiteralExprMetaModel);
         nodeMetaModels.add(intersectionTypeMetaModel);
         nodeMetaModels.add(javadocCommentMetaModel);
+        nodeMetaModels.add(jmlDocMetaModel);
+        nodeMetaModels.add(jmlDocsBodyDeclarationMetaModel);
+        nodeMetaModels.add(jmlDocsTypeDeclarationMetaModel);
         nodeMetaModels.add(keyAbstractExecutionContextMetaModel);
         nodeMetaModels.add(keyCatchAllStatementMetaModel);
         nodeMetaModels.add(keyCcatchBranchMetaModel);
@@ -1093,7 +1101,7 @@ public final class JavaParserMetaModel {
         modifierMetaModel.keywordPropertyMetaModel = new PropertyMetaModel(
                 modifierMetaModel,
                 "keyword",
-                Modifier.DefaultKeyword.class,
+                com.github.javaparser.ast.Modifier.Keyword.class,
                 Optional.empty(),
                 false,
                 false,
@@ -3516,6 +3524,40 @@ public final class JavaParserMetaModel {
         keyTransactionStatementMetaModel
                 .getDeclaredPropertyMetaModels()
                 .add(keyTransactionStatementMetaModel.typePropertyMetaModel);
+        jmlDocMetaModel.contentPropertyMetaModel = new PropertyMetaModel(
+                jmlDocMetaModel,
+                "content",
+                com.github.javaparser.JavaToken.class,
+                Optional.empty(),
+                false,
+                false,
+                false,
+                false);
+        jmlDocMetaModel.getDeclaredPropertyMetaModels().add(jmlDocMetaModel.contentPropertyMetaModel);
+        jmlDocsBodyDeclarationMetaModel.jmlDocsPropertyMetaModel = new PropertyMetaModel(
+                jmlDocsBodyDeclarationMetaModel,
+                "jmlDocs",
+                com.github.javaparser.ast.key.JmlDoc.class,
+                Optional.of(jmlDocMetaModel),
+                false,
+                false,
+                true,
+                false);
+        jmlDocsBodyDeclarationMetaModel
+                .getDeclaredPropertyMetaModels()
+                .add(jmlDocsBodyDeclarationMetaModel.jmlDocsPropertyMetaModel);
+        jmlDocsTypeDeclarationMetaModel.jmlDocsPropertyMetaModel = new PropertyMetaModel(
+                jmlDocsTypeDeclarationMetaModel,
+                "jmlDocs",
+                com.github.javaparser.ast.key.JmlDoc.class,
+                Optional.of(jmlDocMetaModel),
+                false,
+                false,
+                true,
+                false);
+        jmlDocsTypeDeclarationMetaModel
+                .getDeclaredPropertyMetaModels()
+                .add(jmlDocsTypeDeclarationMetaModel.jmlDocsPropertyMetaModel);
         keyContextStatementBlockMetaModel.contextPropertyMetaModel = new PropertyMetaModel(
                 keyContextStatementBlockMetaModel,
                 "context",
@@ -4246,6 +4288,17 @@ public final class JavaParserMetaModel {
     @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
     public static final KeyTransactionStatementMetaModel keyTransactionStatementMetaModel =
             new KeyTransactionStatementMetaModel(Optional.of(statementMetaModel));
+
+    @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
+    public static final JmlDocMetaModel jmlDocMetaModel = new JmlDocMetaModel(Optional.of(nodeMetaModel));
+
+    @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
+    public static final JmlDocsBodyDeclarationMetaModel jmlDocsBodyDeclarationMetaModel =
+            new JmlDocsBodyDeclarationMetaModel(Optional.of(bodyDeclarationMetaModel));
+
+    @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
+    public static final JmlDocsTypeDeclarationMetaModel jmlDocsTypeDeclarationMetaModel =
+            new JmlDocsTypeDeclarationMetaModel(Optional.of(typeDeclarationMetaModel));
 
     @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
     public static final KeyContextStatementBlockMetaModel keyContextStatementBlockMetaModel =

@@ -5,11 +5,11 @@ import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.NodeList;
 
 /**
- *
  * @author Alexander Weigl
  * @version 1 (3/3/26)
  */
 public class JmlDocModifier implements Modifier.Keyword {
+
     private final NodeList<JmlDoc> jmlDocs;
 
     @AllFieldsConstructor

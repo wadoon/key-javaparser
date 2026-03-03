@@ -1309,4 +1309,33 @@ public class NoCommentEqualsVisitor implements GenericVisitor<Boolean, Visitable
         if (!nodesEquals(n.getAssociatedSpecificationComments(), n2.getAssociatedSpecificationComments())) return false;
         return true;
     }
+
+    @Override
+    public Boolean visit(final JmlDoc n, final Visitable arg) {
+        final JmlDoc n2 = (JmlDoc) arg;
+        if (!objEquals(n.getContent(), n2.getContent())) return false;
+        if (!nodesEquals(n.getAssociatedSpecificationComments(), n2.getAssociatedSpecificationComments())) return false;
+        return true;
+    }
+
+    @Override
+    public Boolean visit(final JmlDocsBodyDeclaration n, final Visitable arg) {
+        final JmlDocsBodyDeclaration n2 = (JmlDocsBodyDeclaration) arg;
+        if (!nodesEquals(n.getJmlDocs(), n2.getJmlDocs())) return false;
+        if (!nodesEquals(n.getAnnotations(), n2.getAnnotations())) return false;
+        if (!nodesEquals(n.getAssociatedSpecificationComments(), n2.getAssociatedSpecificationComments())) return false;
+        return true;
+    }
+
+    @Override
+    public Boolean visit(final JmlDocsTypeDeclaration n, final Visitable arg) {
+        final JmlDocsTypeDeclaration n2 = (JmlDocsTypeDeclaration) arg;
+        if (!nodesEquals(n.getJmlDocs(), n2.getJmlDocs())) return false;
+        if (!nodesEquals(n.getMembers(), n2.getMembers())) return false;
+        if (!nodesEquals(n.getModifiers(), n2.getModifiers())) return false;
+        if (!nodeEquals(n.getName(), n2.getName())) return false;
+        if (!nodesEquals(n.getAnnotations(), n2.getAnnotations())) return false;
+        if (!nodesEquals(n.getAssociatedSpecificationComments(), n2.getAssociatedSpecificationComments())) return false;
+        return true;
+    }
 }

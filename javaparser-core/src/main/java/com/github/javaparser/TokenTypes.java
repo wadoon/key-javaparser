@@ -182,14 +182,10 @@ public class TokenTypes {
             case LOOPSCOPE:
             case MERGE_POINT:
             case METHODFRAME:
-            case NO_STATE:
-            case TWO_STATE:
             case SHARP:
             case EXEC:
             case CONTINUETYPE:
             case CCATCH:
-            case MODEL:
-            case GHOST:
             case CCAT:
             case BREAKTYPE:
             case CONTEXTSTART:
