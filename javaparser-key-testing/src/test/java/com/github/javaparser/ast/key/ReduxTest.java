@@ -2,16 +2,18 @@ package com.github.javaparser.ast.key;
 
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ParseResult;
+import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.ast.CompilationUnit;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.TestFactory;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.DynamicTest;
-import org.junit.jupiter.api.TestFactory;
 
 /**
  * @author Alexander Weigl
@@ -29,11 +31,18 @@ public class ReduxTest {
                 .map(it -> DynamicTest.dynamicTest(it.toString(), () -> parse(it)));
     }
 
-    JavaParser parser = new JavaParser();
+    JavaParser parser;
+
+    {
+        var config = new ParserConfiguration();
+        config.setLanguageLevel(ParserConfiguration.LanguageLevel.RAW);
+        parser = new JavaParser(config);
+    }
 
     private void parse(Path it) throws IOException {
         ParseResult<CompilationUnit> res = parser.parse(it);
         if (!res.isSuccessful()) {
+            System.out.println(it);
             res.getProblems().forEach(System.out::println);
             Assertions.fail("Problems in file: " + it);
         }

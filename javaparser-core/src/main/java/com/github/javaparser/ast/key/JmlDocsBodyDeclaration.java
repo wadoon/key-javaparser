@@ -29,7 +29,20 @@ public class JmlDocsBodyDeclaration extends BodyDeclaration<JmlDocsTypeDeclarati
 
     @AllFieldsConstructor
     public JmlDocsBodyDeclaration(NodeList<JmlDoc> jmlDocs) {
-        this.jmlDocs = jmlDocs;
+        this(getRange(jmlDocs), jmlDocs);
+    }
+
+    public static TokenRange getRange(NodeList<JmlDoc> jmlDocs) {
+        if(jmlDocs == null) return null;
+        if(jmlDocs.isEmpty()) return null;
+
+        var first = jmlDocs.getFirst();
+        var last = jmlDocs.getLast();
+        try {
+            return new TokenRange(first.getTokenRange().get().getBegin(), last.getTokenRange().get().getEnd());
+        }catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
