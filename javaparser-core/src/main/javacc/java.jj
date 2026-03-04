@@ -4598,8 +4598,8 @@ Statement Statement():
 {
     try {
         (
-              LOOKAHEAD(2) ret = JmlDocsStatements()
-            | LOOKAHEAD(2) ret = LabeledStatement()
+
+              LOOKAHEAD(2) ret = LabeledStatement()
             | LOOKAHEAD(3) ret = AssertStatement()
             | LOOKAHEAD(3) ret = YieldStatement()
             | LOOKAHEAD(2) ret = KeyMethodCallStatement()
@@ -4772,6 +4772,9 @@ Statement BlockStatement():
          	// try assert statement separate from more general Statement() because assert can be confused with VariableDeclarationExpression sometimes
             LOOKAHEAD( AssertStatement() )
             ret = AssertStatement()
+         |
+            LOOKAHEAD(JmlDocsStatements())
+            ret = JmlDocsStatements()
          |
             LOOKAHEAD( VariableDeclarationExpression() )
             expr = VariableDeclarationExpression()
@@ -6823,8 +6826,10 @@ KeyMetaConstruct KeyMetaConstructStatement() :
     KeyExecCtxtSV execsv = null;
     KeyJumpLabelSV innerLabel=null, outerLabel=null;
     NodeList<Expression> loopInit;
+    KeyMetaConstruct ret;
 }
 {
+(
         "#unwind-loop" {begin=token();} "("
             [ LOOKAHEAD(2) innerLabel = JumpLabelSV() ","]
             [ LOOKAHEAD(2) outerLabel = JumpLabelSV() ","]
@@ -6834,7 +6839,7 @@ KeyMetaConstruct KeyMetaConstructStatement() :
               )
         ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), "#unwind-loop", loopStat, innerLabel, outerLabel);
+            ret =  new KeyMetaConstruct(range(begin, token()), "#unwind-loop", loopStat, innerLabel, outerLabel);
         }
  |
         "#unwind-loop-bounded" {begin=token();} "("
@@ -6845,47 +6850,47 @@ KeyMetaConstruct KeyMetaConstructStatement() :
             )
         ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), "#unwind-loop-bounded", loopStat, innerLabel, outerLabel);
+            ret =  new KeyMetaConstruct(range(begin, token()), "#unwind-loop-bounded", loopStat, innerLabel, outerLabel);
         }
  |
        <FORINITUNFOLDTRANSFORMER> {begin=token();} "(" ( loopInit=ForInit() ) ")" ";"
        {
-           return new KeyMetaConstruct(range(begin, token()), begin, loopInit.get(0));
+           ret =  new KeyMetaConstruct(range(begin, token()), begin, loopInit.get(0));
        }
  |
         <LOOPSCOPEINVARIANTTRANSFORMER> {begin=token();} "(" ( loopStat=WhileStatement() ) ")" ";"
         {
-           return new KeyMetaConstruct(range(begin, token()), begin, loopStat);
+           ret =  new KeyMetaConstruct(range(begin, token()), begin, loopStat);
         }
  |
         <UNPACK> {begin=token();} "(" loopStat=ForStatement() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, loopStat);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, loopStat);
         }
   |
         "#for-to-while" {begin=token();} "(" innerLabel = JumpLabelSV() "," outerLabel = JumpLabelSV() "," stat = Statement() ")"
         {
-           return  new KeyMetaConstruct(range(begin, token()), begin, stat, innerLabel, outerLabel);
+           ret =   new KeyMetaConstruct(range(begin, token()), begin, stat, innerLabel, outerLabel);
         }
   |
         <SWITCHTOIF> {begin=token();} "(" stat = Statement() ")"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, stat);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, stat);
         }
   |
         "#do-break" {begin=token();} "(" labStat=LabeledStatement() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, labStat);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, labStat);
         }
   |
         "#evaluate-arguments" {begin=token();} "(" methRef = Expression() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, methRef);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, methRef);
         }
   |
         "#replace" {begin=token();} "(" stat = Statement() "," sv = VariableSV() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, stat, sv);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, stat, sv);
         }
   |
         "#method-call" {begin=token();} "("
@@ -6894,68 +6899,69 @@ KeyMetaConstruct KeyMetaConstructStatement() :
             methRef = PrimaryExpression()
         ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, methRef, sv, execsv);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, methRef, sv, execsv);
         }
   |
         "#expand-method-body" {begin=token();} "(" stat = Statement() ("," sv = VariableSV() )?  ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, stat, sv);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, stat, sv);
         }
   |
         "#constructor-call" {begin=token();} "(" sv = VariableSV() "," consRef = ExpressionSV() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, consRef, sv);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, consRef, sv);
         }
   |
         "#special-constructor-call" {begin=token();} "(" consRef = ExpressionSV() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, consRef);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, consRef);
         }
   |
         "#post-work" {begin=token();} "(" consRef = ExpressionSV() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, consRef);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, consRef);
         }
   |
         "#static-initialisation" {begin=token();} "(" activeAccess = PrimaryExpression() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, activeAccess);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, activeAccess);
         }
   |
         "#resolve-multiple-var-decl" {begin=token();} "(" stat = Statement() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, stat);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, stat);
         }
   |
         "#array-post-declaration" {begin=token();} "(" stat = Statement() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, stat);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, stat);
         }
   |
         "#init-array-creation" {begin=token();} "(" sv = VariableSV() "," consRef = ExpressionSV() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, consRef, sv);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, consRef, sv);
         }
   |
         "#init-array-creation-transient" {begin=token();} "(" sv = VariableSV() "," consRef = ExpressionSV() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, consRef, sv);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, consRef, sv);
         }
   |
         "#init-array-assignments" {begin=token();} "(" sv = VariableSV() "," consRef = ExpressionSV() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, consRef, sv);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, consRef, sv);
         }
   |
         "#enhancedfor-elim" {begin=token();} "(" loopStat=ForStatement() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, loopStat);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, loopStat);
         }
   |
         <REATTACHLOOPINVARIANT> {begin=token();} "(" loopStat = WhileStatement() ")" ";"
         {
-            return new KeyMetaConstruct(range(begin, token()), begin, loopStat);
+            ret =  new KeyMetaConstruct(range(begin, token()), begin, loopStat);
         }
+   ) {return ret;}
 }
 
 

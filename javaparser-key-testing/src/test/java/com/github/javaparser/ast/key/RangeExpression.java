@@ -18,22 +18,21 @@ public class RangeExpression {
     void test1() {
         var input = "5..6";
         var jp = new JavaParser();
-        try (var stream = new StringProvider(input)) {
-            var jj_input_stream = new SimpleCharStream(stream, 1, 1);
-            var token_source = new GeneratedJavaParserTokenManager(jj_input_stream);
-            token_source.setStoreTokens(true);
-            var tok1 = token_source.getNextToken();
-            var tok2 = token_source.getNextToken();
-            var tok3 = token_source.getNextToken();
-            var tok4 = token_source.getNextToken();
+        var stream = new StringProvider(input);
+        var jj_input_stream = new SimpleCharStream(stream, 1, 1);
+        var token_source = new GeneratedJavaParserTokenManager(jj_input_stream);
+        token_source.setStoreTokens(true);
+        var tok1 = token_source.getNextToken();
+        var tok2 = token_source.getNextToken();
+        var tok3 = token_source.getNextToken();
+        var tok4 = token_source.getNextToken();
 
-            Assertions.assertEquals("5", tok1.toString());
-            Assertions.assertEquals(GeneratedJavaParserConstants.INTEGER_LITERAL, tok1.kind);
-            Assertions.assertEquals("..", tok2.toString());
-            Assertions.assertEquals(GeneratedJavaParserConstants.CONTEXTSTART, tok2.kind);
-            Assertions.assertEquals("6", tok3.toString());
-            Assertions.assertEquals(GeneratedJavaParserConstants.INTEGER_LITERAL, tok3.kind);
-            Assertions.assertEquals(GeneratedJavaParserConstants.EOF, tok4.kind);
-        }
+        Assertions.assertEquals("5", tok1.toString());
+        Assertions.assertEquals(GeneratedJavaParserConstants.INTEGER_LITERAL, tok1.kind);
+        Assertions.assertEquals("..", tok2.toString());
+        Assertions.assertEquals(GeneratedJavaParserConstants.CONTEXTSTART, tok2.kind);
+        Assertions.assertEquals("6", tok3.toString());
+        Assertions.assertEquals(GeneratedJavaParserConstants.INTEGER_LITERAL, tok3.kind);
+        Assertions.assertEquals(GeneratedJavaParserConstants.EOF, tok4.kind);
     }
 }
