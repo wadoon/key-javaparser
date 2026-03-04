@@ -308,4 +308,6 @@ public interface VoidVisitor<A> {
     void visit(JmlDocsTypeDeclaration n, A arg);
 
     void visit(JmlDocsStatements n, A arg);
+
+    void visit(KeYMarkerStatement n, A arg);
 }

@@ -21,7 +21,7 @@ public class GhostTest {
         var parser = new JavaParser(configuration);
         var cu = parser.parse(Paths.get("src/test/resources/Ghost.java"));
         final var result = cu.getResult().get();
-        var body = ((MethodDeclaration) result.getPrimaryType().get().members().get(0))
+        var body = ((MethodDeclaration) result.getPrimaryType().get().members().get(1))
                 .getBody()
                 .get();
         System.out.println(result);

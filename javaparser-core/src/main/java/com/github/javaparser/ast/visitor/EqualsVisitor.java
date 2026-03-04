@@ -1532,4 +1532,13 @@ public class EqualsVisitor implements GenericVisitor<Boolean, Visitable> {
         if (!nodeEquals(n.getComment(), n2.getComment())) return false;
         return true;
     }
+
+    @Override
+    public Boolean visit(final KeYMarkerStatement n, final Visitable arg) {
+        final KeYMarkerStatement n2 = (KeYMarkerStatement) arg;
+        if (!objEquals(n.getKind(), n2.getKind())) return false;
+        if (!nodesEquals(n.getAssociatedSpecificationComments(), n2.getAssociatedSpecificationComments())) return false;
+        if (!nodeEquals(n.getComment(), n2.getComment())) return false;
+        return true;
+    }
 }

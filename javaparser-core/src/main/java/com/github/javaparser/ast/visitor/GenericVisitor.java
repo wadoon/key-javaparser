@@ -315,4 +315,6 @@ public interface GenericVisitor<R, A> {
     R visit(JmlDocsTypeDeclaration n, A arg);
 
     R visit(JmlDocsStatements n, A arg);
+
+    R visit(KeYMarkerStatement n, A arg);
 }

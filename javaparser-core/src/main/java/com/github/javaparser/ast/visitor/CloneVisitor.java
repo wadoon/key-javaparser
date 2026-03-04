@@ -2044,4 +2044,16 @@ public class CloneVisitor implements GenericVisitor<Visitable, Object> {
         copyData(n, r);
         return r;
     }
+
+    @Override
+    public Visitable visit(final KeYMarkerStatement n, final Object arg) {
+        NodeList<Comment> associatedSpecificationComments =
+                cloneList(n.getAssociatedSpecificationComments().orElse(null), arg);
+        Comment comment = cloneNode(n.getComment(), arg);
+        KeYMarkerStatement r = new KeYMarkerStatement(n.getTokenRange().orElse(null), n.getKind());
+        r.setComment(comment);
+        n.getOrphanComments().stream().map(Comment::clone).forEach(r::addOrphanComment);
+        copyData(n, r);
+        return r;
+    }
 }

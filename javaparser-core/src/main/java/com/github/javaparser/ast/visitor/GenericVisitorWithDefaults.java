@@ -729,4 +729,9 @@ public abstract class GenericVisitorWithDefaults<R, A> implements GenericVisitor
     public R visit(final JmlDocsStatements n, final A arg) {
         return defaultAction(n, arg);
     }
+
+    @Override
+    public R visit(final KeYMarkerStatement n, final A arg) {
+        return defaultAction(n, arg);
+    }
 }
