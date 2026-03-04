@@ -112,6 +112,7 @@ public class TokenTypes {
             case JML_LINE_COMMENT:
             case ABSTRACT:
             case ASSERT:
+            case GHOST:
             case BOOLEAN:
             case BREAK:
             case BYTE:

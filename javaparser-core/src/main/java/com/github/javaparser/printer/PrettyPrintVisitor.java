@@ -1126,7 +1126,6 @@ public class PrettyPrintVisitor implements VoidVisitor<Void> {
         n.jmlDocs().accept(this, arg);
     }
 
-
     @Override
     public void visit(final RecordPatternExpr n, final Void arg) {
         printOrphanCommentsBeforeThisChildNode(n);

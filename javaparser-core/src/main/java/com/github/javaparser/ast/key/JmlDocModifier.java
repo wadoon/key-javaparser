@@ -3,8 +3,6 @@ package com.github.javaparser.ast.key;
 import com.github.javaparser.ast.AllFieldsConstructor;
 import com.github.javaparser.ast.Modifier;
 import com.github.javaparser.ast.NodeList;
-
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -29,6 +27,7 @@ public class JmlDocModifier implements Modifier.Keyword {
     public String asString() {
         return jmlDocs.stream().map(it -> it.getContent().asString()).collect(Collectors.joining(" "));
     }
+
     public NodeList<JmlDoc> getJmlDocs() {
         return jmlDocs;
     }

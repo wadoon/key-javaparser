@@ -724,18 +724,22 @@ public abstract class Statement extends Node {
     @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifKeyTransactionStatement(Consumer<KeyTransactionStatement> action) {}
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public boolean isJmlDocsStatements() {
         return false;
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public JmlDocsStatements asJmlDocsStatements() {
         throw new IllegalStateException(
                 f("%s is not JmlDocsStatements, it is %s", this, this.getClass().getSimpleName()));
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public Optional<JmlDocsStatements> toJmlDocsStatements() {
         return Optional.empty();
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifJmlDocsStatements(Consumer<JmlDocsStatements> action) {}
 }

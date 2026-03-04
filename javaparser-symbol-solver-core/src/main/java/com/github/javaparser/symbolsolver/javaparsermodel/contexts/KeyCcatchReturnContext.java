@@ -4,8 +4,6 @@ import com.github.javaparser.ast.Node;
 import com.github.javaparser.ast.body.Parameter;
 import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.key.KeyCcatchReturn;
-import com.github.javaparser.resolution.Context;
-import com.github.javaparser.resolution.MethodUsage;
 import com.github.javaparser.resolution.SymbolDeclarator;
 import com.github.javaparser.resolution.TypeSolver;
 import com.github.javaparser.resolution.declarations.ResolvedMethodDeclaration;
@@ -14,7 +12,6 @@ import com.github.javaparser.resolution.model.SymbolReference;
 import com.github.javaparser.resolution.model.Value;
 import com.github.javaparser.resolution.types.ResolvedType;
 import com.github.javaparser.symbolsolver.javaparsermodel.JavaParserFactory;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
@@ -24,10 +21,11 @@ public class KeyCcatchReturnContext extends AbstractJavaParserContext<KeyCcatchR
         super(kcr, typeSolver);
     }
 
-@Override
+    @Override
     public final SymbolReference<? extends ResolvedValueDeclaration> solveSymbol(String name) {
         if (wrappedNode.getParameter().isPresent()) {
-            SymbolDeclarator sb = JavaParserFactory.getSymbolDeclarator(wrappedNode.getParameter().get(), typeSolver);
+            SymbolDeclarator sb = JavaParserFactory.getSymbolDeclarator(
+                    wrappedNode.getParameter().get(), typeSolver);
             SymbolReference<? extends ResolvedValueDeclaration> symbolReference =
                     AbstractJavaParserContext.solveWith(sb, name);
             if (symbolReference.isSolved()) {
@@ -42,7 +40,8 @@ public class KeyCcatchReturnContext extends AbstractJavaParserContext<KeyCcatchR
     @Override
     public final Optional<Value> solveSymbolAsValue(String name) {
         if (wrappedNode.getParameter().isPresent()) {
-            SymbolDeclarator sb = JavaParserFactory.getSymbolDeclarator(wrappedNode.getParameter().get(), typeSolver);
+            SymbolDeclarator sb = JavaParserFactory.getSymbolDeclarator(
+                    wrappedNode.getParameter().get(), typeSolver);
             Optional<Value> symbolReference = solveWithAsValue(sb, name);
             if (symbolReference.isPresent()) {
                 // Perform parameter type substitution as needed
@@ -70,7 +69,9 @@ public class KeyCcatchReturnContext extends AbstractJavaParserContext<KeyCcatchR
     public List<Parameter> parametersExposedToChild(Node child) {
         // TODO/FIXME: Presumably the parameters must be exposed to all children and their descendants, not just the
         // direct child?
-        if (getWrappedNode().getParameter().isPresent() && getWrappedNode().getBlock().isPresent() && child == getWrappedNode().getBlock().get()) {
+        if (getWrappedNode().getParameter().isPresent()
+                && getWrappedNode().getBlock().isPresent()
+                && child == getWrappedNode().getBlock().get()) {
             return Collections.singletonList(getWrappedNode().getParameter().get());
         }
         return Collections.emptyList();

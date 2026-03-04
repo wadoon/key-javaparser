@@ -542,6 +542,7 @@ TOKEN :
 | <STATIC_EVALUATE: "#static-evaluate" >
 | <CREATE_OBJECT: "#create-object" >
 | <LENGTHREF: "#length-reference" >
+| <GHOST: "ghost">
 | <RESULTARROW: "result->"> // $result =
 }
 
@@ -1513,6 +1514,8 @@ ModifierHolder Modifiers():
             "sealed" { add(modifiers, new Modifier(tokenRange(), Modifier.DefaultKeyword.SEALED));  begin = orIfInvalid(begin, token()); }
          |
             "non-sealed" { add(modifiers, new Modifier(tokenRange(), Modifier.DefaultKeyword.NON_SEALED));  begin = orIfInvalid(begin, token()); }
+         |
+            "ghost"   { add(modifiers, new Modifier(tokenRange(), Modifier.DefaultKeyword.JML_GHOST));  begin = orIfInvalid(begin, token()); }
          |
              ann = Annotation() { annotations = add(annotations, ann); begin = orIfInvalid(begin, ann); }
         )
