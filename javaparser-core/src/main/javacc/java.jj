@@ -4598,7 +4598,8 @@ Statement Statement():
 {
     try {
         (
-            LOOKAHEAD(2) ret = LabeledStatement()
+              LOOKAHEAD(2) ret = JmlDocsStatements()
+            | LOOKAHEAD(2) ret = LabeledStatement()
             | LOOKAHEAD(3) ret = AssertStatement()
             | LOOKAHEAD(3) ret = YieldStatement()
             | LOOKAHEAD(2) ret = KeyMethodCallStatement()
@@ -4620,7 +4621,6 @@ Statement Statement():
             | ret = SynchronizedStatement()
             | ret = TryStatement()
             // KEY
-            | ret = JmlDocsStatements()
             | ret = KeyTransactionStatement()
             | ret = KeyMergePointStatement()
             | ret = KeyLoopScope()
