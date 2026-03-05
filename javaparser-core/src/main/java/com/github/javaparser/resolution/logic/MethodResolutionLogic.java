@@ -30,6 +30,7 @@ import com.github.javaparser.resolution.model.LambdaArgumentTypePlaceholder;
 import com.github.javaparser.resolution.model.SymbolReference;
 import com.github.javaparser.resolution.model.typesystem.ReferenceTypeImpl;
 import com.github.javaparser.resolution.types.*;
+
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
@@ -85,7 +86,7 @@ public class MethodResolutionLogic {
             // method, the lambda cannot implement that interface.
             if (lambdaPlaceholder.getParameterCount().isPresent()
                     && functionalInterface.getNoParams()
-                            != lambdaPlaceholder.getParameterCount().get()) {
+                    != lambdaPlaceholder.getParameterCount().get()) {
                 return true;
             }
             // If the lambda method has a block body then:
@@ -113,7 +114,6 @@ public class MethodResolutionLogic {
      * Note that "needle" refers to that value being used as a search/query term to match against.
      *
      * @return true, if the given ResolvedMethodDeclaration matches the given name/types (normally obtained from a MethodUsage)
-     *
      * @see {@link MethodResolutionLogic#isApplicable(MethodUsage, String, List, TypeSolver)}
      */
     private static boolean isApplicable(
@@ -161,8 +161,8 @@ public class MethodResolutionLogic {
                 // Confirm all of these grouped "trailing" arguments have the required type -- if not, this is not a
                 // valid type. (Maybe this is also done later..?)
                 for (int variadicArgumentIndex = countOfMethodParametersDeclared;
-                        variadicArgumentIndex < countOfNeedleArgumentsPassed;
-                        variadicArgumentIndex++) {
+                     variadicArgumentIndex < countOfNeedleArgumentsPassed;
+                     variadicArgumentIndex++) {
                     ResolvedType currentArgumentType = needleArgumentTypes.get(variadicArgumentIndex);
                     ResolvedType variadicComponentType =
                             expectedVariadicParameterType.asArrayType().getComponentType();
@@ -195,7 +195,7 @@ public class MethodResolutionLogic {
             ResolvedType actualArgumentType = needleArgumentTypes.get(i);
             if (actualArgumentType instanceof LambdaArgumentTypePlaceholder
                     && isConflictingLambdaType(
-                            (LambdaArgumentTypePlaceholder) actualArgumentType, expectedDeclaredType)) {
+                    (LambdaArgumentTypePlaceholder) actualArgumentType, expectedDeclaredType)) {
                 return false;
             }
             if ((expectedDeclaredType.isTypeVariable() && !(expectedDeclaredType.isWildcard()))
@@ -217,7 +217,7 @@ public class MethodResolutionLogic {
             }
             boolean isAssignableWithoutSubstitution = expectedDeclaredType.isAssignableBy(actualArgumentType)
                     || (methodDeclaration.getParam(i).isVariadic()
-                            && convertToVariadicParameter(expectedDeclaredType).isAssignableBy(actualArgumentType));
+                    && convertToVariadicParameter(expectedDeclaredType).isAssignableBy(actualArgumentType));
             if (!isAssignableWithoutSubstitution
                     && expectedDeclaredType.isReferenceType()
                     && actualArgumentType.isReferenceType()) {
@@ -252,13 +252,13 @@ public class MethodResolutionLogic {
                     if (actualArgumentType.isConstraint()
                             && withWildcardTolerance
                             && (actualArgumentType.asConstraintType().getBound().isTypeVariable()
-                                    || (!actualArgumentType
-                                                    .asConstraintType()
-                                                    .getBound()
-                                                    .isTypeVariable()
-                                            && expectedDeclaredType.isAssignableBy(actualArgumentType
-                                                    .asConstraintType()
-                                                    .getBound())))) {
+                            || (!actualArgumentType
+                            .asConstraintType()
+                            .getBound()
+                            .isTypeVariable()
+                            && expectedDeclaredType.isAssignableBy(actualArgumentType
+                            .asConstraintType()
+                            .getBound())))) {
                         needForWildCardTolerance = true;
                         continue;
                     }
@@ -326,7 +326,7 @@ public class MethodResolutionLogic {
             ResolvedType actualArgumentType = needleArgumentTypes.get(lastNeedleArgumentIndex);
             boolean finalArgumentIsArray = actualArgumentType.isArray()
                     && expectedVariadicParameterType.isAssignableBy(
-                            actualArgumentType.asArrayType().getComponentType());
+                    actualArgumentType.asArrayType().getComponentType());
             if (finalArgumentIsArray) {
                 // Treat as an array of values -- in which case the expected parameter type is the common type of this
                 // array.
@@ -509,17 +509,16 @@ public class MethodResolutionLogic {
      * Checks if a method usage is applicable for a given method name and parameter
      * types. This method performs type compatibility checking including generic
      * type variable substitution.
-     *
+     * <p>
      * Note the specific naming here -- parameters are part of the method
      * declaration, while arguments are the values passed when calling a method.
      * Note that "needle" refers to that value being used as a search/query term to
      * match against.
      *
      * @return true, if the given MethodUsage matches the given name/types (normally
-     *         obtained from a ResolvedMethodDeclaration)
-     *
+     * obtained from a ResolvedMethodDeclaration)
      * @see {@link MethodResolutionLogic#isApplicable(ResolvedMethodDeclaration, String, List, TypeSolver)}
-     *      }
+     * }
      * @see {@link MethodResolutionLogic#isApplicable(ResolvedMethodDeclaration, String, List, TypeSolver, boolean)}
      */
     public static boolean isApplicable(
@@ -696,10 +695,10 @@ public class MethodResolutionLogic {
                 // Check boxing/unboxing compatibility with all type variations
                 isApplicable = isBoxingCompatibleWithTypeSolver(expectedArgumentType, actualArgumentType, typeSolver)
                         || isBoxingCompatibleWithTypeSolver(
-                                expectedTypeWithSubstitutions, actualArgumentType, typeSolver)
+                        expectedTypeWithSubstitutions, actualArgumentType, typeSolver)
                         || isBoxingCompatibleWithTypeSolver(expectedTypeWithInference, actualArgumentType, typeSolver)
                         || isBoxingCompatibleWithTypeSolver(
-                                expectedTypeWithoutSubstitutions, actualArgumentType, typeSolver);
+                        expectedTypeWithoutSubstitutions, actualArgumentType, typeSolver);
             }
             if (!isApplicable) {
                 return false;
@@ -801,29 +800,29 @@ public class MethodResolutionLogic {
 
     /**
      * Substitutes type variables from the declaring type into the method signature.
-     *
+     * <p>
      * This method handles the case where a method is inherited from a generic ancestor,
      * and the method signature contains type variables from that ancestor that need to
      * be replaced with the type variables (or concrete types) of the current declaring type.
-     *
+     * <p>
      * Example scenario:
      * - Iterable<T> declares: forEach(Consumer<? super T> action)
      * - Collection<E> extends Iterable<E>
      * - List<E> extends Collection<E>
-     *
+     * <p>
      * When we call List<String>.forEach(...):
      * 1. The method signature initially references Iterable's type variable 'T'
      * 2. This needs to be substituted through the inheritance chain:
-     *    - In Collection<E>: T -> E (Iterable<T> becomes Iterable<E>)
-     *    - In List<E>: E remains E
-     *    - In List<String>: E -> String
+     * - In Collection<E>: T -> E (Iterable<T> becomes Iterable<E>)
+     * - In List<E>: E remains E
+     * - In List<String>: E -> String
      * 3. Final result: forEach(Consumer<? super String> action)
-     *
+     * <p>
      * Without this substitution, we would be comparing incompatible type variables
      * and the method resolution would fail.
      *
      * @param methodUsage the method usage whose signature needs type variable substitution
-     * @param typeSolver the type solver for resolving types during substitution
+     * @param typeSolver  the type solver for resolving types during substitution
      * @return a new MethodUsage with type variables properly substituted
      */
     private static MethodUsage substituteDeclaringTypeParameters(MethodUsage methodUsage, TypeSolver typeSolver) {
@@ -869,18 +868,18 @@ public class MethodResolutionLogic {
 
     /**
      * Recursively substitutes type variables within a type structure.
-     *
+     * <p>
      * This method performs deep substitution of type variables, handling various
      * type structures including:
      * - Simple type variables (T, E, K, V, etc.)
      * - Wildcards with type variable bounds (? super T, ? extends E)
      * - Parameterized types with type variables (List<T>, Map<K, V>)
      * - Nested combinations of the above (Consumer<? super T>, List<List<E>>)
-     *
+     * <p>
      * The substitution is based on a mapping between type parameter declarations
      * (the formal parameters as declared, e.g., <T> in class Foo<T>) and their
      * actual type arguments (the concrete types used, e.g., String in Foo<String>).
-     *
+     * <p>
      * Example transformations:
      * - T -> String (when typeParams contains T and typeArgs contains String)
      * - ? super T -> ? super String
@@ -888,9 +887,9 @@ public class MethodResolutionLogic {
      * - List<T> -> List<String>
      * - Map<K, V> -> Map<String, Integer> (with appropriate mappings)
      *
-     * @param type the type in which to substitute type variables
+     * @param type       the type in which to substitute type variables
      * @param typeParams the list of type parameter declarations (formal parameters)
-     * @param typeArgs the list of actual type arguments to substitute in
+     * @param typeArgs   the list of actual type arguments to substitute in
      * @return a new type with all matching type variables substituted
      */
     private static ResolvedType substituteTypeVariables(
@@ -1010,17 +1009,19 @@ public class MethodResolutionLogic {
         if (invocationContext != null) {
             List<ResolvedMethodDeclaration> resolvedMethods = new ArrayList<>(methods);
             for (ResolvedMethodDeclaration method : resolvedMethods) {
-                CallableDeclaration<?> declaration = (CallableDeclaration<?>) method.toAst().orElseThrow();
-                if (declaration.isPrivate() &&
-                        !(invocationContext.getQualifiedName().equals(method.declaringType().asType().getQualifiedName())
-                                || method.declaringType().internalTypes().contains(invocationContext))
-                ) {
+                final CallableDeclaration<?> declaration = (CallableDeclaration<?>) method.toAst().orElseThrow();
+                final ResolvedReferenceTypeDeclaration containerType = method.declaringType();
+                if (containerType.internalTypes().contains(invocationContext)) {
+                    // inner classes can see anything in their surrounding class
+                    continue;
+                } else if (declaration.isPrivate() &&
+                        !(invocationContext.getQualifiedName().equals(containerType.getQualifiedName()))) {
                     methods.remove(method);
                 } else if (declaration.isProtected() &&
-                        !method.declaringType().isAssignableBy(invocationContext)) {
+                        !containerType.isAssignableBy(invocationContext)) {
                     methods.remove(method);
                 } else if (declaration.getAccessSpecifier() == AccessSpecifier.NONE &&
-                        !method.declaringType().getPackageName().equals(invocationContext.getPackageName())) {
+                        !containerType.getPackageName().equals(invocationContext.getPackageName())) {
                     methods.remove(method);
                 }
             }
