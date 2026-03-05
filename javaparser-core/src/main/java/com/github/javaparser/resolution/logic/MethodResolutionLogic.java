@@ -1011,7 +1011,8 @@ public class MethodResolutionLogic {
             for (ResolvedMethodDeclaration method : resolvedMethods) {
                 final CallableDeclaration<?> declaration = (CallableDeclaration<?>) method.toAst().orElseThrow();
                 final ResolvedReferenceTypeDeclaration containerType = method.declaringType();
-                if (containerType.internalTypes().contains(invocationContext)) {
+                if (containerType.internalTypes().stream().anyMatch(internalType ->
+                        internalType.getQualifiedName().equals(invocationContext.getQualifiedName()))) {
                     // inner classes can see anything in their surrounding class
                     continue;
                 } else if (declaration.isPrivate() &&
