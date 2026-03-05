@@ -1018,12 +1018,14 @@ public class MethodResolutionLogic {
                 } else if (declaration.isPrivate() &&
                         !(invocationContext.getQualifiedName().equals(containerType.getQualifiedName()))) {
                     methods.remove(method);
-                } else if (declaration.isProtected() &&
-                        !containerType.isAssignableBy(invocationContext)) {
-                    methods.remove(method);
-                } else if (declaration.getAccessSpecifier() == AccessSpecifier.NONE &&
-                        !containerType.getPackageName().equals(invocationContext.getPackageName())) {
-                    methods.remove(method);
+                } else {
+                    final boolean samePackage = containerType.getPackageName().equals(invocationContext.getPackageName());
+                    if (declaration.isProtected() &&
+                            !(containerType.isAssignableBy(invocationContext) || samePackage)) {
+                        methods.remove(method);
+                    } else if (declaration.getAccessSpecifier() == AccessSpecifier.NONE && !samePackage) {
+                        methods.remove(method);
+                    }
                 }
             }
         }
