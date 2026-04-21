@@ -193,7 +193,6 @@ public class TokenTypes {
             case BREAKTYPE:
             case CONTEXTSTART:
             case TYPEOF:
-            case SWITCHTOIF:
             case UNPACK:
             case REATTACHLOOPINVARIANT:
             case FORINITUNFOLDTRANSFORMER:
