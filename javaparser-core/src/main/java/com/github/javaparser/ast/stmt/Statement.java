@@ -743,18 +743,22 @@ public abstract class Statement extends Node {
     @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifJmlDocsStatements(Consumer<JmlDocsStatements> action) {}
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public boolean isKeYMarkerStatement() {
         return false;
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public KeYMarkerStatement asKeYMarkerStatement() {
         throw new IllegalStateException(f(
                 "%s is not KeYMarkerStatement, it is %s", this, this.getClass().getSimpleName()));
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public Optional<KeYMarkerStatement> toKeYMarkerStatement() {
         return Optional.empty();
     }
 
+    @Generated("com.github.javaparser.generator.core.node.TypeCastingGenerator")
     public void ifKeYMarkerStatement(Consumer<KeYMarkerStatement> action) {}
 }

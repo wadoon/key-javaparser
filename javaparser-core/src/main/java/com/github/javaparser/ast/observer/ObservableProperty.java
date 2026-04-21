@@ -34,6 +34,7 @@ import java.util.Optional;
  */
 @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
 public enum ObservableProperty {
+    ACTIVE(Type.SINGLE_ATTRIBUTE),
     ANNOTATIONS(Type.MULTIPLE_REFERENCE),
     ANONYMOUS_CLASS_BODY(Type.MULTIPLE_REFERENCE),
     ARGUMENTS(Type.MULTIPLE_REFERENCE),
