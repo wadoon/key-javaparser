@@ -356,14 +356,14 @@ public class JavaToken {
         LOOPSCOPE(90),
         MERGE_POINT(91),
         METHODFRAME(92),
-        EXEC(93),
-        CONTINUETYPE(94),
-        CCATCH(95),
-        CCAT(96),
-        BREAKTYPE(97),
-        CONTEXTSTART(98),
-        TYPEOF(99),
-        SWITCHTOIF(100),
+        ACTIVECASE(93),
+        EXEC(94),
+        CONTINUETYPE(95),
+        CCATCH(96),
+        CCAT(97),
+        BREAKTYPE(98),
+        CONTEXTSTART(99),
+        TYPEOF(100),
         UNPACK(101),
         REATTACHLOOPINVARIANT(102),
         FORINITUNFOLDTRANSFORMER(103),
@@ -707,21 +707,21 @@ public class JavaToken {
                 case 101:
                     return UNPACK;
                 case 100:
-                    return SWITCHTOIF;
-                case 99:
                     return TYPEOF;
-                case 98:
+                case 99:
                     return CONTEXTSTART;
-                case 97:
+                case 98:
                     return BREAKTYPE;
-                case 96:
+                case 97:
                     return CCAT;
-                case 95:
+                case 96:
                     return CCATCH;
-                case 94:
+                case 95:
                     return CONTINUETYPE;
-                case 93:
+                case 94:
                     return EXEC;
+                case 93:
+                    return ACTIVECASE;
                 case 92:
                     return METHODFRAME;
                 case 91:

@@ -177,6 +177,7 @@ public class SwitchEntry extends Node implements NodeWithStatements<SwitchEntry>
         setType(type);
         setStatements(statements);
         setDefault(isDefault);
+        setActive(isActive);
         setGuard(guard);
         customInitialization();
     }
@@ -357,7 +358,7 @@ public class SwitchEntry extends Node implements NodeWithStatements<SwitchEntry>
         if (isActive == this.isActive) {
             return this;
         }
-        notifyPropertyChange(ObservableProperty.DEFAULT, this.isActive, isActive);
+        notifyPropertyChange(ObservableProperty.ACTIVE, this.isActive, isActive);
         this.isActive = isActive;
         return this;
     }
