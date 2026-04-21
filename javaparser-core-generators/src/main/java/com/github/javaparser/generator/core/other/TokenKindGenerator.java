@@ -96,6 +96,7 @@ public class TokenKindGenerator extends Generator {
                 SwitchEntry.Type.STATEMENT_GROUP,
                 new NodeList<>(new ReturnStmt(name)),
                 false,
+                false,
                 null);
         valueOfSwitch.getEntries().addFirstO(entry);
     }

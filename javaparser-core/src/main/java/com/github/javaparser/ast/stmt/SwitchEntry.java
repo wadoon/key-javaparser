@@ -120,11 +120,13 @@ public class SwitchEntry extends Node implements NodeWithStatements<SwitchEntry>
 
     private boolean isDefault;
 
+    private boolean isActive;
+
     @OptionalProperty
     private Expression guard;
 
     public SwitchEntry() {
-        this(null, new NodeList<Expression>(), Type.STATEMENT_GROUP, new NodeList<>(), false, null);
+        this(null, new NodeList<Expression>(), Type.STATEMENT_GROUP, new NodeList<>(), false, false, null);
     }
 
     /**
@@ -136,7 +138,7 @@ public class SwitchEntry extends Node implements NodeWithStatements<SwitchEntry>
             final NodeList<Expression> labels,
             final Type type,
             final NodeList<Statement> statements) {
-        this(tokenRange, labels, type, statements, false, null);
+        this(tokenRange, labels, type, statements, false, false, null);
     }
 
     /**
@@ -144,7 +146,7 @@ public class SwitchEntry extends Node implements NodeWithStatements<SwitchEntry>
      * the `isDefault` and guard fields were added.
      */
     public SwitchEntry(final NodeList<Expression> labels, final Type type, final NodeList<Statement> statements) {
-        this(null, labels, type, statements, false, null);
+        this(null, labels, type, statements, false, false, null);
     }
 
     @AllFieldsConstructor
@@ -153,8 +155,9 @@ public class SwitchEntry extends Node implements NodeWithStatements<SwitchEntry>
             final Type type,
             final NodeList<Statement> statements,
             final boolean isDefault,
+            final boolean isActive,
             final Expression guard) {
-        this(null, labels, type, statements, isDefault, guard);
+        this(null, labels, type, statements, isDefault, isActive, guard);
     }
 
     /**
@@ -167,6 +170,7 @@ public class SwitchEntry extends Node implements NodeWithStatements<SwitchEntry>
             Type type,
             NodeList<Statement> statements,
             boolean isDefault,
+            boolean isActive,
             Expression guard) {
         super(tokenRange);
         setLabels(labels);
@@ -332,6 +336,12 @@ public class SwitchEntry extends Node implements NodeWithStatements<SwitchEntry>
         return Objects.requireNonNull(isDefault);
     }
 
+    @com.github.javaparser.ast.key.IgnoreLexPrinting()
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
+    public boolean isActive() {
+        return Objects.requireNonNull(isActive);
+    }
+
     @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
     public SwitchEntry setDefault(final boolean isDefault) {
         if (isDefault == this.isDefault) {
@@ -339,6 +349,16 @@ public class SwitchEntry extends Node implements NodeWithStatements<SwitchEntry>
         }
         notifyPropertyChange(ObservableProperty.DEFAULT, this.isDefault, isDefault);
         this.isDefault = isDefault;
+        return this;
+    }
+
+    @Generated("com.github.javaparser.generator.core.node.PropertyGenerator")
+    public SwitchEntry setActive(final boolean isActive) {
+        if (isActive == this.isActive) {
+            return this;
+        }
+        notifyPropertyChange(ObservableProperty.DEFAULT, this.isActive, isActive);
+        this.isActive = isActive;
         return this;
     }
 

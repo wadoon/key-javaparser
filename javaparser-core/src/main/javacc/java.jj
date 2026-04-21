@@ -502,6 +502,7 @@ TOKEN :
 | < LOOPSCOPE: "loop-scope" | "$loopScope" >
 | < MERGE_POINT: "merge_point" | "$mergePoint" >
 | < METHODFRAME: "method-frame" | "$methodFrame" >
+| < ACTIVECASE: "active-case" | "$activeCase" >
 | < EXEC: "exec" >
 | < CONTINUETYPE: "\\Continue" >
 | < CCATCH: "ccatch" >
@@ -509,7 +510,6 @@ TOKEN :
 | < BREAKTYPE: "\\Break" >
 | < CONTEXTSTART: ".." >
 | < TYPEOF: "#typeof" >
-| < SWITCHTOIF: "#switch-to-if" >
 | < UNPACK: "#unpack" >
 | < REATTACHLOOPINVARIANT: "#reattachLoopInvariant" >
 | < FORINITUNFOLDTRANSFORMER: "#forInitUnfoldTransformer" >
@@ -5005,6 +5005,7 @@ SwitchExpr SwitchExpression():
  *         case null [, default]
  *         case CasePattern [Guard]
  *         default
+ *         active-case
  *     CaseConstant:
  *         ConditionalExpression
  *     CasePattern:
@@ -5023,6 +5024,7 @@ SwitchEntry SwitchEntry():
     Statement stmt = null;
     Expression expr = null;
     boolean isDefault = false;
+    boolean isActive = false;
     Expression guard = null;
 }
 {
@@ -5064,11 +5066,13 @@ SwitchEntry SwitchEntry():
         )
      |
         "default" { begin=token(); isDefault = true; }
+     |
+        "active-case" { begin=token(); isActive = false; }
     )
     (
         ":"
         stmts = Statements()
-        { ret = new SwitchEntry(range(begin, token()), labels, STATEMENT_GROUP, stmts, isDefault, guard); }
+        { ret = new SwitchEntry(range(begin, token()), labels, STATEMENT_GROUP, stmts, isDefault, isActive, guard); }
      |
         "->"
         (
@@ -5076,21 +5080,21 @@ SwitchEntry SwitchEntry():
             {
                 TokenRange r=range(begin, token());
                 stmts.add(stmt);
-                ret = new SwitchEntry(r, labels, EXPRESSION, stmts, isDefault, guard);
+                ret = new SwitchEntry(r, labels, EXPRESSION, stmts, isDefault, isActive, guard);
             }
          |
             stmt = Block()
             {
                 TokenRange r=range(begin, token());
                 stmts.add(stmt);
-                ret = new SwitchEntry(r, labels, BLOCK, stmts, isDefault, guard);
+                ret = new SwitchEntry(r, labels, BLOCK, stmts, isDefault, isActive, guard);
             }
          |
             stmt = ThrowStatement()
             {
                 TokenRange r=range(begin, token());
                 stmts.add(stmt);
-                ret = new SwitchEntry(r, labels, THROWS_STATEMENT, stmts, isDefault, guard);
+                ret = new SwitchEntry(r, labels, THROWS_STATEMENT, stmts, isDefault, isActive, guard);
             }
         )
     )
@@ -6871,11 +6875,6 @@ KeyMetaConstruct KeyMetaConstructStatement() :
         "#for-to-while" {begin=token();} "(" innerLabel = JumpLabelSV() "," outerLabel = JumpLabelSV() "," stat = Statement() ")"
         {
            ret =   new KeyMetaConstruct(range(begin, token()), begin, stat, innerLabel, outerLabel);
-        }
-  |
-        <SWITCHTOIF> {begin=token();} "(" stat = Statement() ")"
-        {
-            ret =  new KeyMetaConstruct(range(begin, token()), begin, stat);
         }
   |
         "#do-break" {begin=token();} "(" labStat=LabeledStatement() ")" ";"
