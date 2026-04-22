@@ -5028,7 +5028,14 @@ SwitchEntry SwitchEntry():
     Expression guard = null;
 }
 {
-    (
+
+     LOOKAHEAD(4)
+     "case" { begin=token(); } ":"
+     <SVIDENTIFIER>
+     { ret = new KeySwitchEntrySV(range(begin, token()), token().getText()); }
+     |
+     (
+     (
         "case" { begin=token(); }
         (
             /**
@@ -5097,6 +5104,7 @@ SwitchEntry SwitchEntry():
                 ret = new SwitchEntry(r, labels, THROWS_STATEMENT, stmts, isDefault, isActive, guard);
             }
         )
+    )
     )
     { return ret; }
 }
