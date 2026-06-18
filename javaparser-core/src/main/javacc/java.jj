@@ -502,7 +502,7 @@ TOKEN :
 | < LOOPSCOPE: "loop-scope" | "$loopScope" >
 | < MERGE_POINT: "merge_point" | "$mergePoint" >
 | < METHODFRAME: "method-frame" | "$methodFrame" >
-| < ACTIVECASE: "active-case" | "$activeCase" >
+| < ACTIVECASE: "active-case" >
 | < EXEC: "exec" >
 | < CONTINUETYPE: "\\Continue" >
 | < CCATCH: "ccatch" >

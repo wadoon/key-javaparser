@@ -43,6 +43,8 @@ public class SwitchEntryMetaModel extends NodeMetaModel {
 
     public PropertyMetaModel guardPropertyMetaModel;
 
+    public PropertyMetaModel isActivePropertyMetaModel;
+
     public PropertyMetaModel isDefaultPropertyMetaModel;
 
     public PropertyMetaModel labelsPropertyMetaModel;

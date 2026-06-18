@@ -448,6 +448,7 @@ public final class JavaParserMetaModel {
         switchEntryMetaModel.getConstructorParameters().add(switchEntryMetaModel.typePropertyMetaModel);
         switchEntryMetaModel.getConstructorParameters().add(switchEntryMetaModel.statementsPropertyMetaModel);
         switchEntryMetaModel.getConstructorParameters().add(switchEntryMetaModel.isDefaultPropertyMetaModel);
+        switchEntryMetaModel.getConstructorParameters().add(switchEntryMetaModel.isActivePropertyMetaModel);
         switchEntryMetaModel.getConstructorParameters().add(switchEntryMetaModel.guardPropertyMetaModel);
         switchStmtMetaModel.getConstructorParameters().add(switchStmtMetaModel.selectorPropertyMetaModel);
         switchStmtMetaModel.getConstructorParameters().add(switchStmtMetaModel.entriesPropertyMetaModel);
@@ -2747,6 +2748,9 @@ public final class JavaParserMetaModel {
                 false,
                 false);
         switchEntryMetaModel.getDeclaredPropertyMetaModels().add(switchEntryMetaModel.guardPropertyMetaModel);
+        switchEntryMetaModel.isActivePropertyMetaModel = new PropertyMetaModel(
+                switchEntryMetaModel, "isActive", boolean.class, Optional.empty(), false, false, false, false);
+        switchEntryMetaModel.getDeclaredPropertyMetaModels().add(switchEntryMetaModel.isActivePropertyMetaModel);
         switchEntryMetaModel.isDefaultPropertyMetaModel = new PropertyMetaModel(
                 switchEntryMetaModel, "isDefault", boolean.class, Optional.empty(), false, false, false, false);
         switchEntryMetaModel.getDeclaredPropertyMetaModels().add(switchEntryMetaModel.isDefaultPropertyMetaModel);
