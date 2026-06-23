@@ -5032,7 +5032,9 @@ SwitchEntry SwitchEntry():
      LOOKAHEAD(4)
      "case" { begin=token(); } ":"
      <SVIDENTIFIER>
-     { ret = new KeySwitchEntrySV(range(begin, token()), token().getText()); }
+     { ret = new KeySwitchEntrySV(range(begin, token()), token().getText());
+      return ret;
+     }
      |
      (
      (
