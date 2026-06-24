@@ -5076,7 +5076,7 @@ SwitchEntry SwitchEntry():
      |
         "default" { begin=token(); isDefault = true; }
      |
-        "active-case" { begin=token(); isActive = false; }
+        "active-case" { begin=token(); isActive = true; }
     )
     (
         ":"
