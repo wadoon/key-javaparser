@@ -189,7 +189,7 @@
 				</configuration>
 			</plugin>
 
-			<!-- NEW: Plugin for publishing to Maven Central -->                
+			<!-- NEW: Plugin for publishing to Maven Central -->
 			<plugin>
 			  <groupId>org.sonatype.central</groupId>
 			  <artifactId>central-publishing-maven-plugin</artifactId>
@@ -210,16 +210,16 @@
                 <autoPublish>false</autoPublish>
 				<waitUntil>published</waitUntil>
 				<deploymentName>${project.artifactId}-${project.version}</deploymentName>
-                
+
 			  </configuration>
 			</plugin>
 
-            
 
-            
+
+
 		</plugins>
 
-        
+
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -292,7 +292,7 @@
 				  </configuration>
 				</plugin>
 
-                
+
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
@@ -527,7 +527,7 @@
 		    </repository>
 	      </distributionManagement>
         </profile>
-        
+
         <profile>
           <id>gitlab</id>
           <distributionManagement>
@@ -562,7 +562,7 @@
           <!--   </plugins> -->
           <!-- </build>           -->
         </profile>
-        
+
 		<profile>
 			<!-- This profile is intended for use when preparing and deploying a release. -->
 			<id>run-release</id>
