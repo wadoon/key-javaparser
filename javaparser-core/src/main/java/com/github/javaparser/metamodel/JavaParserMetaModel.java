@@ -599,6 +599,7 @@ public final class JavaParserMetaModel {
         keyContextStatementBlockMetaModel
                 .getConstructorParameters()
                 .add(keyContextStatementBlockMetaModel.expressionPropertyMetaModel);
+        keySwitchEntrySVMetaModel.getConstructorParameters().add(keySwitchEntrySVMetaModel.schemaVarPropertyMetaModel);
         keyExecCtxtSVMetaModel.getConstructorParameters().add(keyExecCtxtSVMetaModel.textPropertyMetaModel);
         keyExpressionSVMetaModel.getConstructorParameters().add(keyExpressionSVMetaModel.textPropertyMetaModel);
         keyJumpLabelSVMetaModel.getConstructorParameters().add(keyJumpLabelSVMetaModel.textPropertyMetaModel);
@@ -725,6 +726,7 @@ public final class JavaParserMetaModel {
         nodeMetaModels.add(keyProgramVariableSVMetaModel);
         nodeMetaModels.add(keyRangeExpressionMetaModel);
         nodeMetaModels.add(keyStatementSVMetaModel);
+        nodeMetaModels.add(keySwitchEntrySVMetaModel);
         nodeMetaModels.add(keyTransactionStatementMetaModel);
         nodeMetaModels.add(keyTypeSVMetaModel);
         nodeMetaModels.add(labeledStmtMetaModel);
@@ -3643,6 +3645,30 @@ public final class JavaParserMetaModel {
         keyContextStatementBlockMetaModel
                 .getDeclaredPropertyMetaModels()
                 .add(keyContextStatementBlockMetaModel.trPropertyMetaModel);
+        keySwitchEntrySVMetaModel.schemaVarPropertyMetaModel = new PropertyMetaModel(
+                keySwitchEntrySVMetaModel,
+                "schemaVar",
+                java.lang.String.class,
+                Optional.empty(),
+                false,
+                false,
+                false,
+                false);
+        keySwitchEntrySVMetaModel
+                .getDeclaredPropertyMetaModels()
+                .add(keySwitchEntrySVMetaModel.schemaVarPropertyMetaModel);
+        keySwitchEntrySVMetaModel.switchStatementEntryPropertyMetaModel = new PropertyMetaModel(
+                keySwitchEntrySVMetaModel,
+                "switchStatementEntry",
+                boolean.class,
+                Optional.empty(),
+                false,
+                false,
+                false,
+                false);
+        keySwitchEntrySVMetaModel
+                .getDerivedPropertyMetaModels()
+                .add(keySwitchEntrySVMetaModel.switchStatementEntryPropertyMetaModel);
         keyExecCtxtSVMetaModel.textPropertyMetaModel = new PropertyMetaModel(
                 keyExecCtxtSVMetaModel, "text", java.lang.String.class, Optional.empty(), false, false, false, false);
         keyExecCtxtSVMetaModel.getDeclaredPropertyMetaModels().add(keyExecCtxtSVMetaModel.textPropertyMetaModel);
@@ -4336,6 +4362,10 @@ public final class JavaParserMetaModel {
     @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
     public static final KeyContextStatementBlockMetaModel keyContextStatementBlockMetaModel =
             new KeyContextStatementBlockMetaModel(Optional.of(statementMetaModel));
+
+    @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
+    public static final KeySwitchEntrySVMetaModel keySwitchEntrySVMetaModel =
+            new KeySwitchEntrySVMetaModel(Optional.of(switchEntryMetaModel));
 
     @Generated("com.github.javaparser.generator.metamodel.NodeMetaModelGenerator")
     public static final KeyExecCtxtSVMetaModel keyExecCtxtSVMetaModel =
