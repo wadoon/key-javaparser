@@ -1259,7 +1259,6 @@ public class ConcreteSyntaxModel {
         concreteSyntaxModelByClass.put(JmlDocsStatements.class, sequence());
         concreteSyntaxModelByClass.put(JmlDocsTypeDeclaration.class, sequence());
         concreteSyntaxModelByClass.put(KeYMarkerStatement.class, sequence());
-
         List<String> unsupportedNodeClassNames = JavaParserMetaModel.getNodeMetaModels().stream()
                 .filter(c -> !c.isAbstract()
                         && !Comment.class.isAssignableFrom(c.getType())

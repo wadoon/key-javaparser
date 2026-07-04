@@ -33,6 +33,7 @@ import com.github.javaparser.ast.body.CompactConstructorDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.key.*;
 import com.github.javaparser.ast.key.sv.*;
+import com.github.javaparser.ast.stmt.KeySwitchEntrySV;
 import com.github.javaparser.ast.stmt.Statement;
 import com.github.javaparser.generator.AbstractGenerator;
 import com.github.javaparser.printer.DefaultPrettyPrinter;
@@ -225,6 +226,7 @@ public class MetaModelGenerator extends AbstractGenerator {
 
             // KeY-Schema
             add(KeyContextStatementBlock.class);
+            add(KeySwitchEntrySV.class);
             add(KeyExecCtxtSV.class);
             add(KeyExpressionSV.class);
             add(KeyJumpLabelSV.class);
