@@ -232,6 +232,7 @@ public class TokenTypes {
                 return JavaToken.Category.KEYWORD;
             case LONG_LITERAL:
             case INTEGER_LITERAL:
+            case DECIMALLITERAL_DOT_DOT:
             case DECIMAL_LITERAL:
             case HEX_LITERAL:
             case OCTAL_LITERAL:

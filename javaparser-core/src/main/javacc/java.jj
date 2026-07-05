@@ -719,12 +719,7 @@ TOKEN :
   >
 |
   < #DECIMAL_FLOATING_POINT_LITERAL:
-      //weigl: add negative lookahead here because `5..6` are read as to floating numbers
-      // here we just force a following part of the double literal, hence "5." is not valid anymore
-         <DECIMAL_LITERAL> "." (<DECIMAL_LITERAL>) (<DECIMAL_EXPONENT>)? (["f","F","d","D"])?
-      |  <DECIMAL_LITERAL> "." (<DECIMAL_LITERAL>)? (<DECIMAL_EXPONENT>) (["f","F","d","D"])?
-      |  <DECIMAL_LITERAL> "." (<DECIMAL_LITERAL>)? (<DECIMAL_EXPONENT>)? (["f","F","d","D"])
-      //end patch
+         <DECIMAL_LITERAL> "." (<DECIMAL_LITERAL>)? (<DECIMAL_EXPONENT>)? (["f","F","d","D"])?
       | "." <DECIMAL_LITERAL> (<DECIMAL_EXPONENT>)? (["f","F","d","D"])?
       | <DECIMAL_LITERAL> <DECIMAL_EXPONENT> (["f","F","d","D"])?
       | <DECIMAL_LITERAL> (<DECIMAL_EXPONENT>)? ["f","F","d","D"]
@@ -740,6 +735,9 @@ TOKEN :
   < #HEXADECIMAL_EXPONENT: ["p","P"] (["+","-"])? <DECIMAL_LITERAL> >
 |
   < #HEX_DIGITS: ["0"-"9","a"-"f","A"-"F"]((["0"-"9","a"-"f","A"-"F","_"])*["0"-"9","a"-"f","A"-"F"])? >
+|
+  < DECIMALLITERAL_DOT_DOT:
+     <DECIMAL_LITERAL> "." "." >
 |
   /**
    * https://docs.oracle.com/javase/specs/jls/se15/html/jls-3.html#jls-3.3
@@ -4222,6 +4220,7 @@ Expression PrimaryPrefix():
         {
             ret=  new KeyPassiveExpression(range(begin, token()), expr);
       	}
+     | ret = KeyIndexLiteralRange()
      |
         name = SimpleName() { begin=token(); }
         [ args = Arguments() { hasArgs=true; } ]
@@ -4292,6 +4291,7 @@ Expression PrimarySuffixWithoutSuper(Expression scope):
         ret = Expression()
         "]"
         { ret = new ArrayAccessExpr(range(scope, token()), scope, ret); }
+     | ret = KeyIndexRangeSuffix(scope)
     )
     { return ret; }
 }
@@ -6476,7 +6476,7 @@ Expression ADTConstructor() :
     }
 }*/
 
-Expression KeyIndexRange() :
+Expression KeyIndexLiteralRange() :
     /*
      * Introduced to handle postfix style sequence ranges as top-level expressions.
      * XXX does not yet work since Expression may contain dots
@@ -6486,10 +6486,32 @@ Expression KeyIndexRange() :
     JavaToken begin;
 }
 {
-    result = Expression()
-    [ ".." end = Expression()
-      { result = new KeyRangeExpression(range(result, token()), result, end); } ]
-    { return result; }
+  (
+    <DECIMALLITERAL_DOT_DOT>
+      { result = new IntegerLiteralExpr(tokenRange(), token.image.substring(0, token.image.length()-2)); }
+    end = Expression()
+      { result = new KeyRangeExpression(range(result, token()), result, end); }
+  )
+
+  {
+    return result;
+  }
+}
+
+Expression KeyIndexRangeSuffix(Expression scope) :
+{
+    Expression result, end;
+    JavaToken begin;
+}
+{
+  (
+    <CONTEXTSTART> end = Expression()  // CONTEXTSTART = ".."
+      { result = new KeyRangeExpression(range(scope, token()), scope, end); }
+  )
+
+  {
+    return result;
+  }
 }
 
 
