@@ -736,8 +736,14 @@ TOKEN :
 |
   < #HEX_DIGITS: ["0"-"9","a"-"f","A"-"F"]((["0"-"9","a"-"f","A"-"F","_"])*["0"-"9","a"-"f","A"-"F"])? >
 |
-  < DECIMALLITERAL_DOT_DOT:
-     <DECIMAL_LITERAL> "." "." >
+  < DECIMALLITERAL_DOT_DOT: <DECIMAL_LITERAL> "." "." >
+    {
+         matchedToken.kind = INTEGER_LITERAL;
+         matchedToken.realKind = DECIMALLITERAL_DOT_DOT;
+         matchedToken.image = matchedToken.image.substring(0, matchedToken.image.length() - 2);
+         matchedToken.endColumn = matchedToken.endColumn - 2;
+         input_stream.backup(2);
+      }
 |
   /**
    * https://docs.oracle.com/javase/specs/jls/se15/html/jls-3.html#jls-3.3
@@ -4220,7 +4226,7 @@ Expression PrimaryPrefix():
         {
             ret=  new KeyPassiveExpression(range(begin, token()), expr);
       	}
-     | ret = KeyIndexLiteralRange()
+     // | ret = KeyIndexLiteralRange()
      |
         name = SimpleName() { begin=token(); }
         [ args = Arguments() { hasArgs=true; } ]
@@ -6476,27 +6482,27 @@ Expression ADTConstructor() :
     }
 }*/
 
-Expression KeyIndexLiteralRange() :
-    /*
-     * Introduced to handle postfix style sequence ranges as top-level expressions.
-     * XXX does not yet work since Expression may contain dots
-     */
-{
-    Expression result, end;
-    JavaToken begin;
-}
-{
-  (
-    <DECIMALLITERAL_DOT_DOT>
-      { result = new IntegerLiteralExpr(tokenRange(), token.image.substring(0, token.image.length()-2)); }
-    end = Expression()
-      { result = new KeyRangeExpression(range(result, token()), result, end); }
-  )
-
-  {
-    return result;
-  }
-}
+//Expression KeyIndexLiteralRange() :
+//    /*
+//     * Introduced to handle postfix style sequence ranges as top-level expressions.
+//     * XXX does not yet work since Expression may contain dots
+//     */
+//{
+//    Expression result, end;
+//    JavaToken begin;
+//}
+//{
+//  (
+//    <DECIMALLITERAL_DOT_DOT>
+//      { result = new IntegerLiteralExpr(tokenRange(), token.image.substring(0, token.image.length()-2)); }
+//    end = Expression()
+//      { result = new KeyRangeExpression(range(result, token()), result, end); }
+//  )
+//
+//  {
+//    return result;
+//  }
+//}
 
 Expression KeyIndexRangeSuffix(Expression scope) :
 {
