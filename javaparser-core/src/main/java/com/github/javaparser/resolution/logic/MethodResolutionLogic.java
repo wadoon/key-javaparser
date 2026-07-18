@@ -779,7 +779,10 @@ public class MethodResolutionLogic {
         if (expectedType.isPrimitive() && actualType.isPrimitive()) {
             ResolvedPrimitiveType expectedPrimitive = expectedType.asPrimitive();
             ResolvedPrimitiveType actualPrimitive = actualType.asPrimitive();
-            return expectedPrimitive.isAssignableBy(actualPrimitive);
+            // return expectedPrimitive.isAssignableBy(actualPrimitive);
+
+            // assumption: we only end here during recursive descend of an array type
+            return expectedPrimitive.equals(actualPrimitive);
         }
         // Both are reference types but one might be a constrained/wildcard type
         // This can happen after type variable substitution
